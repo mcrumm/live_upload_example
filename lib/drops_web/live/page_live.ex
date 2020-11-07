@@ -10,6 +10,11 @@ defmodule DropsWeb.PageLive do
   end
 
   @impl true
+  def handle_event("validate", _params, socket) do
+    {:noreply, socket}
+  end
+
+  @impl true
   def handle_event("save", _params, socket) do
     uploaded_files =
       consume_uploaded_entries(socket, :exhibit, fn %{path: path}, _entry ->

@@ -6,7 +6,7 @@
     <%= entry.client_name %> - <%= entry.progress %>%
   <% end %>
 
-  <form phx-submit="save" phx-auto-recover="ignore">
+  <form phx-change="validate" phx-submit="save" phx-auto-recover="ignore">
     <%= live_file_input @uploads.exhibit %>
     <button type="submit">Upload</button>
   </form>
