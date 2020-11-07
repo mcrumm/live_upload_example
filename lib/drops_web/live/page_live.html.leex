@@ -4,6 +4,7 @@
 
   <%= for entry <- @uploads.exhibit.entries do %>
     <%= entry.client_name %> - <%= entry.progress %>%
+    <%= live_img_preview entry, width: 75 %>
     <a href="#" phx-click="cancel-upload" phx-value-ref="<%= entry.ref %>">&times</a>
   <% end %>
 
