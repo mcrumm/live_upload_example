@@ -33,7 +33,7 @@ defmodule Drops.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.5.6"},
+      {:phoenix, "~> 1.5.6", override: true, github: "phoenixframework/phoenix", branch: "v1.5"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
       {:postgrex, ">= 0.0.0"},
