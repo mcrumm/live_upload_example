@@ -15,6 +15,11 @@ defmodule DropsWeb.PageLive do
   end
 
   @impl true
+  def handle_event("cancel-upload", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :exhibit, ref)}
+  end
+
+  @impl true
   def handle_event("save", _params, socket) do
     uploaded_files =
       consume_uploaded_entries(socket, :exhibit, fn %{path: path}, _entry ->

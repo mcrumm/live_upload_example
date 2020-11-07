@@ -4,6 +4,7 @@
 
   <%= for entry <- @uploads.exhibit.entries do %>
     <%= entry.client_name %> - <%= entry.progress %>%
+    <a href="#" phx-click="cancel-upload" phx-value-ref="<%= entry.ref %>">&times</a>
   <% end %>
 
   <form phx-change="validate" phx-submit="save" phx-auto-recover="ignore">
