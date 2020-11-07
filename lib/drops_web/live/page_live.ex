@@ -3,6 +3,8 @@ defmodule DropsWeb.PageLive do
 
   @impl true
   def mount(_params, _session, socket) do
+    File.mkdir_p!("priv/static/uploads")
+
     {:ok,
      socket
      |> assign(:uploaded_files, [])
