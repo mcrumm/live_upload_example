@@ -8,7 +8,7 @@
     <a href="#" phx-click="cancel-upload" phx-value-ref="<%= entry.ref %>">&times</a>
   <% end %>
 
-  <form phx-change="validate" phx-submit="save" phx-auto-recover="ignore">
+  <form phx-change="validate" phx-submit="save">
     <%= live_file_input @uploads.exhibit %>
     <button type="submit">Upload</button>
   </form>
