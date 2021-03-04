@@ -1,0 +1,70 @@
+<h1>Basic Uploads Example</h1>
+
+<p>The demo showcases the following features of live uploads:<p>
+
+<ul>
+  <li>allow_upload/2 specification</li>
+  <li>live_file_input/1</li>
+  <li>live_img_preview/2</li>
+  <li>upload_errors/2</li>
+  <li>declarative entry progress</li>
+  <li>cancel_upload/3</li>
+  <li>consume_uploaded_entries/3 on submit</li>
+</ul>
+
+<section class="row upload-demo">
+  <div class="column">
+
+    <h2>Upload</h2>
+    <%# you can reference the upload config to drive informational messages %>
+    <p>You may add up to <%= @uploads.exhibit.max_entries %> exhibits at a time.</p>
+
+    <form phx-change="validate" phx-submit="save">
+      <%= live_file_input @uploads.exhibit %>
+      <button type="submit">Upload</button>
+    </form>
+
+    <h3>Pending Uploads</h3>
+
+    <%# this works around the missing "too many files" error %>
+    <%= if error = DropsWeb.LiveUploadHelpers.upload_error(@uploads.exhibit) do %>
+      <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></div>
+    <% end %>
+    <%# end work-around %>
+
+    <%# phx-drop-target on the element provides drag-and-drop %>
+    <div class="pending-uploads" phx-drop-target="<%= @uploads.exhibit.ref %>">
+
+    <%= for entry <- @uploads.exhibit.entries do %>
+      <div class="upload-entry">
+        <%= live_img_preview entry, class: "upload-entry__image" %>
+        <%# declaratively render in-flight progress with `entry.progress` %>
+        <span class="upload-entry__text"><%= entry.client_name %> - <%= entry.progress %>%</span>
+        <%# review the handle_event("cancel-upload") callback in the LiveView %>
+        <a href="#" phx-click="cancel-upload" phx-value-ref="<%= entry.ref %>" class="upload-entry__cancel">&times;</a>
+
+      <%# upload_errors/2 returns error atoms per upload entry %>
+      <%= for err <- upload_errors(@uploads.exhibit, entry) do %>
+        <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(err) %></div>
+      <% end %>
+      </div>
+
+    <% end %>
+    </div>
+
+  </div>
+
+  <div class="column">
+
+    <h2>My Exhibits</h2>
+
+  <%= for static_path <- @uploaded_files do  %>
+    <div class="uploaded-file">
+      <img src="<%= static_path %>" class="uploaded-file__image" />
+      <p class="uploaded-file__text"><%= static_path %></p>
+    </div>
+
+  <% end %>
+  </div>
+
+</section>

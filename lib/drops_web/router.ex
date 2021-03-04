@@ -18,10 +18,6 @@ defmodule DropsWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+    live "/uploads/basic", BasicUploadsLive, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", DropsWeb do
-  #   pipe_through :api
-  # end
 end

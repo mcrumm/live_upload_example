@@ -1,25 +1,13 @@
 <section class="phx-hero">
-  <h1>New Drop</h1>
-  <p>You may add up to <%= @uploads.exhibit.max_entries %> exhibits.</p>
+  <h1>Live Upload Example</h1>
 
-  <%= for entry <- @uploads.exhibit.entries do %>
-    <%= entry.client_name %> - <%= entry.progress %>%
-    <%= live_img_preview entry, width: 75 %>
-    <a href="#" phx-click="cancel-upload" phx-value-ref="<%= entry.ref %>">&times</a>
-  <% end %>
+  <p>The following is a list of live upload demos:</p>
 
-  <form phx-change="validate" phx-submit="save">
-    <%= live_file_input @uploads.exhibit %>
-    <button type="submit">Upload</button>
-  </form>
+  <dl>
+    <dt><%= link("Basic Demo", to: Routes.basic_uploads_path(@socket, :index)) %></dt>
+    <dd>Demonstrates basic upload features.</dd>
+  </dl>
 </section>
-
-<h2>My Exhibits</h2>
-<ul>
-<%= for static_path <- @uploaded_files do  %>
-  <li><img src="<%= static_path %>" width="75" /></li>
-<% end %>
-</ul>
 
 <section class="row">
   <article class="column">
