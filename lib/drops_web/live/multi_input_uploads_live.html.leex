@@ -1,0 +1,69 @@
+<h1>Multiple File Inputs Example</h1>
+
+<p>The demo multiple <code>live_file_input</code> fields on a single form:<p>
+
+<section class="row upload-demo upload-demo__multi-input" style="min-height:100vh;">
+
+  <article class="column" phx-drop-target="<%= @uploads.images.ref %>" style="min-height:100vh;">
+    <label for="<%= @uploads.images.ref %>">Images (up to <%= @uploads.images.max_entries %>)</label>
+
+    <%# this works around the missing "too many files" error %>
+    <%= if error = DropsWeb.LiveUploadHelpers.upload_error(@uploads.images) do %>
+      <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></div>
+    <% end %>
+    <%# end work-around %>
+
+    <%= for entry <- @uploads.images.entries do %>
+      <div class="upload-entry">
+        <%= live_img_preview entry, class: "upload-entry__image" %>
+        <span class="upload-entry__text"><%= entry.client_name %> - <%= entry.progress %>%</span>
+        <a href="#"
+           phx-click="cancel-upload"
+           phx-value-upload="<%= entry.upload_config %>"
+           phx-value-ref="<%= entry.ref %>"
+           class="upload-entry__cancel">&times;</a>
+
+      <%= for err <- upload_errors(@uploads.images, entry) do %>
+        <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(err) %></div>
+      <% end %>
+      </div>
+    <% end %>
+
+  </article>
+
+  <article class="column" phx-drop-target="<%= @uploads.anything.ref %>" style="min-height:100vh;">
+    <label for="<%= @uploads.anything.ref %>">Any Files (up to <%= @uploads.anything.max_entries %>)</label>
+
+    <%# this works around the missing "too many files" error %>
+    <%= if error = DropsWeb.LiveUploadHelpers.upload_error(@uploads.anything) do %>
+      <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></div>
+    <% end %>
+    <%# end work-around %>
+
+    <%= for entry <- @uploads.anything.entries do %>
+      <div class="upload-entry">
+        <span class="upload-entry__text"><%= entry.client_name %> - <%= entry.progress %>%</span>
+        <a href="#"
+           phx-click="cancel-upload"
+           phx-value-upload="<%= entry.upload_config %>"
+           phx-value-ref="<%= entry.ref %>"
+           class="upload-entry__cancel">&times;</a>
+
+      <%= for err <- upload_errors(@uploads.anything, entry) do %>
+        <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(err) %></div>
+      <% end %>
+      </div>
+    <% end %>
+  </article>
+
+  <article class="column">
+    <form phx-change="validate" phx-submit="save" phx-auto-recover="ignore">
+      <%= live_file_input @uploads.images, style: "display:none;" %>
+      <%= live_file_input @uploads.anything, style: "display:none;" %>
+      <button type="submit">Upload</button>
+    </form>
+    <ul><%= for path <- @uploaded_files do %><li>
+      <%= path %>
+    <% end %></ul>
+  </article>
+</section>
