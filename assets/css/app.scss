@@ -35,6 +35,20 @@
   }
 }
 
+.upload-component {
+  >.preview {
+    img {
+      margin: 1rem;
+    }
+  }
+}
+
+.avatar {
+  >img {
+    margin: 1rem 1.5rem 0 0;
+  }
+}
+
 /* LiveView specific classes for your customizations */
 .phx-no-feedback.invalid-feedback,
 .phx-no-feedback .invalid-feedback {
