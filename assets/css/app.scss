@@ -3,35 +3,60 @@
 @import "../node_modules/nprogress/nprogress.css";
 
 /* DropsWeb upload stuff */
+details {
+  margin: 1rem 0 2rem;
+}
+
+details:not([open]) {
+  summary::after {
+    content: " (click to expand)"
+  }
+}
+
 .upload-demo {
   margin-bottom: 2rem;
 }
 
 .upload-entry {
-  display: flex;
   border-bottom: 1px dashed #ccc;
   padding: .87rem 0;
 
-  &__image {
-    margin: 1rem 1.5rem 0 0;
-    width: 96px;
-    object-fit: contain;
-    align-self: flex-start;
+  &__progress {
+    height: 0.87rem;
+    width: 100%;
+    min-width: 100%;
   }
 
-  &__text {
-    flex: 1 1 auto;
+  &__details {
+    display: flex;
+
+    figure {
+      display: flex;
+      margin: 1rem 1.5rem 0 0;
+
+      img {
+        width: 96px;
+        object-fit: contain;
+        align-self: flex-start;
+      }
+
+      figcaption {
+        flex: 1 1 auto;
+      }
+    }
   }
 }
 
-.uploaded-file {
-  &__image {
-    margin: 1rem 1.5rem 0 0;
-  }
+output {
+  >figure {
+    img {
+      margin: 1rem 1.5rem 0 0;
+    }
 
-  &__text {
-    font-family: monospace;
-    font-size: smaller;
+    figcaption {
+      font-family: monospace;
+      font-size: smaller;
+    }
   }
 }
 

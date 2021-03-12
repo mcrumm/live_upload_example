@@ -1,70 +1,93 @@
 <h1>Basic Uploads Example</h1>
-
-<p>The demo showcases the following features of live uploads:<p>
-
-<ul>
-  <li>allow_upload/2 specification</li>
-  <li>live_file_input/1</li>
-  <li>live_img_preview/2</li>
-  <li>upload_errors/2</li>
-  <li>declarative entry progress</li>
-  <li>cancel_upload/3</li>
-  <li>consume_uploaded_entries/3 on submit</li>
-</ul>
+<details>
+  <summary>The demo showcases the following features of live uploads:</summary>
+  <ul>
+    <li><code>allow_upload/3</code> specification</li>
+    <li><code>live_file_input/1</code></li>
+    <li><code>live_img_preview/2</code></li>
+    <li><code>upload_errors/2</code></li>
+    <li><code>entry.progress</code></li>
+    <li><code>cancel_upload/3</code></li>
+    <li><code>consume_uploaded_entries/3</code> on submit</li>
+  </ul>
+</details>
 
 <section class="row upload-demo">
-  <div class="column">
+  <section class="column">
 
     <h2>Upload</h2>
+
     <%# you can reference the upload config to drive informational messages %>
     <p>You may add up to <%= @uploads.exhibit.max_entries %> exhibits at a time.</p>
 
-    <form phx-change="validate" phx-submit="save">
+    <%# this form contains the live_file_input - you must bind phx-change and phx-submit on the form %>
+    <form id="basic-uploads-form" phx-change="validate" phx-submit="save">
       <%= live_file_input @uploads.exhibit %>
-      <button type="submit">Upload</button>
+      <button type="submit" phx-disable-with="Uploading...">Upload</button>
     </form>
 
-    <h3>Pending Uploads</h3>
-
-    <%# this works around the missing "too many files" error %>
-    <%= if error = DropsWeb.LiveUploadHelpers.upload_error(@uploads.exhibit) do %>
-      <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></div>
-    <% end %>
-    <%# end work-around %>
-
     <%# phx-drop-target on the element provides drag-and-drop %>
-    <div class="pending-uploads" phx-drop-target="<%= @uploads.exhibit.ref %>">
+    <section class="pending-uploads" phx-drop-target="<%= @uploads.exhibit.ref %>" style="min-height: 100%;">
 
+      <h3>Pending Uploads</h3>
+      <p>You can drag and drop files here, too.</p>
+
+      <%# this works around the missing "too many files" error %>
+      <%= if error = DropsWeb.LiveUploadHelpers.upload_error(@uploads.exhibit) do %>
+        <p class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></p>
+      <% end %>
+      <%# end work-around %>
+
+    <%#
+      the entries comprehension does the following:
+
+        * invokes live_img_preview/2 which renders a client-side image preview
+
+        * renders the client-side filename and upload `progress` for each entry
+
+        * renders a link the user can click to to trigger the `cancel-upload` event for an entry
+
+        * renders any existing errors for the entry
+
+    %>
     <%= for entry <- @uploads.exhibit.entries do %>
       <div class="upload-entry">
-        <%= live_img_preview entry, class: "upload-entry__image" %>
-        <%# declaratively render in-flight progress with `entry.progress` %>
-        <span class="upload-entry__text"><%= entry.client_name %> - <%= entry.progress %>%</span>
-        <%# review the handle_event("cancel-upload") callback in the LiveView %>
-        <a href="#" phx-click="cancel-upload" phx-value-ref="<%= entry.ref %>" class="upload-entry__cancel">&times;</a>
+        <%# render in-flight progress using the reactive `entry.progress` %>
+        <progress value="<%= entry.progress %>" class="upload-entry__progress" id="<%= entry.ref %>-progress" max="100"> <%= entry.progress %>% </progress>
+
+        <div class="upload-entry__details">
+          <%# live_img_preview/2 uses an internal hook to render a client-side image preview %>
+          <figure>
+            <%= live_img_preview entry %>
+            <figcaption><%= entry.client_name %> (<%= entry.client_size %>)</figcaption>
+          </figure>
+
+          <%# review the handle_event("cancel-upload") callback in the LiveView %>
+          <a href="#" phx-click="cancel-upload" phx-value-ref="<%= entry.ref %>" class="upload-entry__cancel">&times;</a>
+        </div>
 
       <%# upload_errors/2 returns error atoms per upload entry %>
       <%= for err <- upload_errors(@uploads.exhibit, entry) do %>
-        <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(err) %></div>
+        <p class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(err) %></p>
       <% end %>
+
       </div>
 
     <% end %>
-    </div>
+    </section>
 
-  </div>
+  </section>
 
-  <div class="column">
-
+  <section class="column">
     <h2>My Exhibits</h2>
 
-  <%= for static_path <- @uploaded_files do  %>
-    <div class="uploaded-file">
-      <img src="<%= static_path %>" class="uploaded-file__image" />
-      <p class="uploaded-file__text"><%= static_path %></p>
-    </div>
+    <output form="basic-uploads-form" for="<%= @uploads.exhibit.ref %>"><%= for static_path <- @uploaded_files do %>
+      <figure>
+        <img src="<%= static_path %>" />
+        <figcaption><%= static_path %></figcaption>
+      </figure>
+   <% end %></output>
 
-  <% end %>
-  </div>
+  </section>
 
 </section>
