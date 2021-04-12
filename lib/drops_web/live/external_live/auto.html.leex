@@ -1,0 +1,21 @@
+<section class="phx-hero">
+  <h1>External Uploads Example</h1>
+  <sub>Note: These uploads are simulated and begin automatically. Check the developer console of your browser for log info.</sub>
+  <p>You may add up to <%= @uploads.exhibit.max_entries %> exhibits.</p>
+
+  <%= for entry <- @uploads[:exhibit].entries do %>
+    <%= unless entry.done? do %>
+      <pre><code><%= inspect entry, pretty: true %></code></pre>
+    <% end %>
+  <% end %>
+
+<%# this works around the missing "too many files" error %>
+<%= if error = DropsWeb.LiveUploadHelpers.upload_error(@uploads.exhibit) do %>
+  <p class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></p>
+<% end %>
+<%# end work-around %>
+
+  <form phx-change="validate">
+    <%= live_file_input @uploads.exhibit %>
+  </form>
+</section>
