@@ -23,16 +23,19 @@ defmodule DropsWeb.ExternalLive.Auto do
   # with auto_upload: true we can consume files here
   defp handle_progress(:exhibit, entry, socket) do
     if entry.done? do
-      consume_uploaded_entry(socket, entry, fn %{} = meta ->
-        IO.inspect({entry, meta})
-      end)
-    end
+      uuid =
+        consume_uploaded_entry(socket, entry, fn _meta ->
+          entry.uuid
+        end)
 
-    {:noreply, socket}
+      {:noreply, update(socket, :uploaded_files, &[uuid | &1])}
+    else
+      {:noreply, socket}
+    end
   end
 
   defp presigned_upload(entry, socket) do
-    meta = %{uploader: "NoJitter", name: entry.client_name, ref: entry.ref, uuid: entry.uuid}
+    meta = %{uploader: "NoWait", name: entry.client_name, ref: entry.ref, uuid: entry.uuid}
     {:ok, meta, socket}
   end
 

@@ -38,4 +38,12 @@ Uploaders.NoJitter = function (entries) {
   })
 }
 
+Uploaders.NoWait = function (entries) {
+  entries.forEach(entry => {
+    let { file, meta } = entry
+    console.log(`[Uploaders.NoWait] received file`, meta, file)
+    setTimeout(() => markCompleted(entry), 100)
+  })
+}
+
 export default Uploaders
