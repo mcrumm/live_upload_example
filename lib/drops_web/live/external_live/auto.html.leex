@@ -24,7 +24,7 @@
       <h3>Pending Uploads (<%= length(@uploads.exhibit.entries) %>)</h3>
 
       <%= for entry <- @uploads[:exhibit].entries do %>
-        <pre><code><%= inspect entry, pretty: true %></code></pre>
+        <pre class="upload-entry"><code><%= inspect entry, pretty: true %></code></pre>
       <% end %>
 
     </section>
