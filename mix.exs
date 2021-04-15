@@ -37,7 +37,7 @@ defmodule Drops.MixProject do
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_live_view, "~> 0.15.0"},
+      {:phoenix_live_view, "~> 0.15.0", phoenix_live_view_opts()},
       {:floki, ">= 0.27.0", only: :test},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -47,6 +47,14 @@ defmodule Drops.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"}
     ]
+  end
+
+  defp phoenix_live_view_opts do
+    if path = System.get_env("LIVE_VIEW_PATH") do
+      [path: path]
+    else
+      []
+    end
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
