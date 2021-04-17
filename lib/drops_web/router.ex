@@ -18,6 +18,11 @@ defmodule DropsWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+    live "/uploader", UploaderLive.Demo, :index
+    live "/uploader/start", UploaderLive.Demo, :start
+    live "/uploader/done", UploaderLive.Demo, :done
+    live "/uploader/brb", UploaderLive.Demo, :continue
+
     live "/uploads/basic", BasicUploadsLive, :index
     live "/uploads/component", ComponentUploadsLive, :index
     live "/uploads/multi", MultiInputUploadsLive, :index

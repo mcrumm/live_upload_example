@@ -36,17 +36,23 @@ defmodule DropsWeb.UploadComponent do
   end
 
   def handle_event("save", _, socket) do
-    [filename] =
-      consume_uploaded_entries(socket, :upload_component_file, fn %{path: path}, _entry ->
-        dest = Path.join(Drops.uploads_priv_dir(), Path.basename(path))
-        File.cp!(path, dest)
-        Path.basename(dest)
-      end)
-
-    upload_path = Routes.static_path(socket, "/uploads/#{filename}")
-
-    send(self(), {__MODULE__, socket.assigns.id, upload_path})
+    case consume_uploaded_entries(socket, :upload_component_file, &copy_to_destination!/2) do
+      [] -> :ok
+      [filename] -> hoist_file(socket, filename)
+    end
 
     {:noreply, socket}
+  end
+
+  defp copy_to_destination!(%{path: path}, _) do
+    dest = Path.join(Drops.uploads_priv_dir(), Path.basename(path))
+    File.cp!(path, dest)
+    Path.basename(dest)
+  end
+
+  defp hoist_file(socket, filename) do
+    upload_path = Routes.static_path(socket, "/uploads/#{filename}")
+    send(self(), {__MODULE__, socket.assigns.id, upload_path})
+    :ok
   end
 end
