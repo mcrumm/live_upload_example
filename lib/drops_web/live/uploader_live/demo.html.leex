@@ -24,7 +24,7 @@
         <figcaption>DONE:<%= @file %></figcaption>
       </figure>
 
-      <%= live_patch("Again, again!", to: Routes.uploader_demo_path(@socket, :start)) %> |
+      <%= live_redirect("Again, again!", to: Routes.uploader_demo_path(@socket, :start)) %> |
       <%= live_patch("All done", to: Routes.page_path(@socket, :index)) %>
     <% end %>
 

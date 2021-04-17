@@ -7,11 +7,9 @@
   <article class="column" phx-drop-target="<%= @uploads.images.ref %>" style="min-height:100vh;">
     <label for="<%= @uploads.images.ref %>">Images (up to <%= @uploads.images.max_entries %>)</label>
 
-    <%# this works around the missing "too many files" error %>
-    <%= if error = DropsWeb.LiveUploadHelpers.upload_error(@uploads.images) do %>
+    <%= for error <- DropsWeb.LiveUploadHelpers.upload_errors(@uploads.images) do %>
       <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></div>
     <% end %>
-    <%# end work-around %>
 
     <%= for entry <- @uploads.images.entries do %>
       <div class="upload-entry">
@@ -34,11 +32,9 @@
   <article class="column" phx-drop-target="<%= @uploads.anything.ref %>" style="min-height:100vh;">
     <label for="<%= @uploads.anything.ref %>">Any Files (up to <%= @uploads.anything.max_entries %>)</label>
 
-    <%# this works around the missing "too many files" error %>
-    <%= if error = DropsWeb.LiveUploadHelpers.upload_error(@uploads.anything) do %>
+    <%= for error <- DropsWeb.LiveUploadHelpers.upload_errors(@uploads.anything) do %>
       <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></div>
     <% end %>
-    <%# end work-around %>
 
     <%= for entry <- @uploads.anything.entries do %>
       <div class="upload-entry">

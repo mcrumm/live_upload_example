@@ -9,11 +9,9 @@
 
     <p>You may add up to <%= @uploads.exhibit.max_entries %> exhibits at a time.</p>
 
-    <%# this works around the missing "too many files" error %>
-    <%= if error = DropsWeb.LiveUploadHelpers.upload_error(@uploads.exhibit) do %>
+    <%= for error <- DropsWeb.LiveUploadHelpers.upload_errors(@uploads.exhibit) do %>
       <p class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></p>
     <% end %>
-    <%# end work-around %>
 
     <form id="external-auto-form" phx-change="validate">
       <%= live_file_input @uploads.exhibit %>
