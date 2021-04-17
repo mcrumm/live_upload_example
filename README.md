@@ -1,4 +1,6 @@
-# Drops
+# LiveUpload Example
+
+A collection of demos showcasing uploads with Phoenix LiveView.
 
 To start your Phoenix server:
 
