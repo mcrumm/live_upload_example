@@ -21,5 +21,6 @@ defmodule DropsWeb.Router do
     live "/uploads/basic", BasicUploadsLive, :index
     live "/uploads/component", ComponentUploadsLive, :index
     live "/uploads/multi", MultiInputUploadsLive, :index
+    live "/uploads/external/auto", ExternalLive.Auto, :index
   end
 end

@@ -1,0 +1,44 @@
+<h1>External Uploads Example</h1>
+<p>Note: These uploads are simulated and begin automatically. Check the developer console of your browser for log info.</p>
+
+<section class="row upload-demo">
+
+  <section class="column">
+
+    <h2>Upload</h2>
+
+    <p>You may add up to <%= @uploads.exhibit.max_entries %> exhibits at a time.</p>
+
+    <%# this works around the missing "too many files" error %>
+    <%= if error = DropsWeb.LiveUploadHelpers.upload_error(@uploads.exhibit) do %>
+      <p class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></p>
+    <% end %>
+    <%# end work-around %>
+
+    <form id="external-auto-form" phx-change="validate">
+      <%= live_file_input @uploads.exhibit %>
+    </form>
+
+    <section class="pending-uploads" phx-drop-target="<%= @uploads.exhibit.ref %>" style="min-height: 100%;">
+
+      <h3>Pending Uploads (<%= length(@uploads.exhibit.entries) %>)</h3>
+
+      <%= for entry <- @uploads[:exhibit].entries do %>
+        <pre class="upload-entry"><code><%= inspect entry, pretty: true %></code></pre>
+      <% end %>
+
+    </section>
+
+  </section>
+
+
+  <section class="column">
+    <h2>UUIDs (<%= length(@uploaded_files) %>)</h2>
+
+    <output form="external-auto-form" for="<%= @uploads.exhibit.ref %>"><%= for uuid <- @uploaded_files do %>
+      <p><%= uuid %></p>
+   <% end %></output>
+
+  </section>
+
+</section>
