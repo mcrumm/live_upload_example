@@ -7,7 +7,7 @@
   <article class="column" phx-drop-target="<%= @uploads.images.ref %>" style="min-height:100vh;">
     <label for="<%= @uploads.images.ref %>">Images (up to <%= @uploads.images.max_entries %>)</label>
 
-    <%= for error <- DropsWeb.LiveUploadHelpers.upload_errors(@uploads.images) do %>
+    <%= for error <- upload_errors(@uploads.images) do %>
       <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></div>
     <% end %>
 
@@ -32,7 +32,7 @@
   <article class="column" phx-drop-target="<%= @uploads.anything.ref %>" style="min-height:100vh;">
     <label for="<%= @uploads.anything.ref %>">Any Files (up to <%= @uploads.anything.max_entries %>)</label>
 
-    <%= for error <- DropsWeb.LiveUploadHelpers.upload_errors(@uploads.anything) do %>
+    <%= for error <- upload_errors(@uploads.anything) do %>
       <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></div>
     <% end %>
 

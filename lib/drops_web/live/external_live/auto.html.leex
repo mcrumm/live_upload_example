@@ -9,7 +9,7 @@
 
     <p>You may add up to <%= @uploads.exhibit.max_entries %> exhibits at a time.</p>
 
-    <%= for error <- DropsWeb.LiveUploadHelpers.upload_errors(@uploads.exhibit) do %>
+    <%= for error <- upload_errors(@uploads.exhibit) do %>
       <p class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></p>
     <% end %>
 
