@@ -33,7 +33,7 @@
       <p>You can drag and drop files here, too.</p>
 
       <%= for error <- upload_errors(@uploads.exhibit) do %>
-        <p class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></p>
+        <p class="alert alert-danger"><%= upload_error_to_string(error) %></p>
       <% end %>
 
     <%#
@@ -65,8 +65,8 @@
         </div>
 
       <%# upload_errors/2 returns error atoms per upload entry %>
-      <%= for err <- upload_errors(@uploads.exhibit, entry) do %>
-        <p class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(err) %></p>
+      <%= for error <- upload_errors(@uploads.exhibit, entry) do %>
+        <p class="alert alert-danger"><%= upload_error_to_string(error) %></p>
       <% end %>
 
       </div>

@@ -44,4 +44,13 @@ defmodule DropsWeb.ErrorHelpers do
       Gettext.dgettext(DropsWeb.Gettext, "errors", msg, opts)
     end
   end
+
+  @doc """
+  Returns an error message for an upload error.
+
+  See [`upload_errors/2`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.Helpers.html#upload_errors/2).
+  """
+  def upload_error_to_string(:too_large), do: "The file is too large"
+  def upload_error_to_string(:too_many_files), do: "You have selected too many files"
+  def upload_error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
 end

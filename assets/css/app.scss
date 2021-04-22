@@ -28,19 +28,23 @@ details:not([open]) {
 
   &__details {
     display: flex;
+    padding-bottom: 1rem;
 
     figure {
       display: flex;
+      flex-basis: 100%;
       margin: 1rem 1.5rem 0 0;
 
       img {
         width: 96px;
         object-fit: contain;
         align-self: flex-start;
+        padding-right: .87rem;
       }
 
       figcaption {
         flex: 1 1 auto;
+        align-self: center;
       }
     }
   }

@@ -8,7 +8,7 @@
     <label for="<%= @uploads.images.ref %>">Images (up to <%= @uploads.images.max_entries %>)</label>
 
     <%= for error <- upload_errors(@uploads.images) do %>
-      <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></div>
+      <div class="alert alert-danger"><%= upload_error_to_string(error) %></div>
     <% end %>
 
     <%= for entry <- @uploads.images.entries do %>
@@ -21,8 +21,8 @@
            phx-value-ref="<%= entry.ref %>"
            class="upload-entry__cancel">&times;</a>
 
-      <%= for err <- upload_errors(@uploads.images, entry) do %>
-        <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(err) %></div>
+      <%= for error <- upload_errors(@uploads.images, entry) do %>
+        <div class="alert alert-danger"><%= upload_error_to_string(error) %></div>
       <% end %>
       </div>
     <% end %>
@@ -33,7 +33,7 @@
     <label for="<%= @uploads.anything.ref %>">Any Files (up to <%= @uploads.anything.max_entries %>)</label>
 
     <%= for error <- upload_errors(@uploads.anything) do %>
-      <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></div>
+      <div class="alert alert-danger"><%= upload_error_to_string(error) %></div>
     <% end %>
 
     <%= for entry <- @uploads.anything.entries do %>
@@ -45,8 +45,8 @@
            phx-value-ref="<%= entry.ref %>"
            class="upload-entry__cancel">&times;</a>
 
-      <%= for err <- upload_errors(@uploads.anything, entry) do %>
-        <div class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(err) %></div>
+      <%= for error <- upload_errors(@uploads.anything, entry) do %>
+        <div class="alert alert-danger"><%= upload_error_to_string(error) %></div>
       <% end %>
       </div>
     <% end %>

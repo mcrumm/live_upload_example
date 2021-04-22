@@ -10,7 +10,7 @@
     <p>You may add up to <%= @uploads.exhibit.max_entries %> exhibits at a time.</p>
 
     <%= for error <- upload_errors(@uploads.exhibit) do %>
-      <p class="alert alert-danger"><%= DropsWeb.LiveUploadHelpers.error_to_string(error) %></p>
+      <p class="alert alert-danger"><%= upload_error_to_string(error) %></p>
     <% end %>
 
     <form id="external-auto-form" phx-change="validate">
