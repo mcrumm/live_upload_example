@@ -1,6 +1,25 @@
 defmodule DropsWeb.BasicUploadsLiveTest do
   use DropsWeb.ConnCase
   import Phoenix.LiveViewTest
+
+  test "uploads preflight on validate", %{conn: conn} do
+    # 1) Connect to LiveView
+    {:ok, live_view, _html} = live(conn, Routes.basic_uploads_path(conn, :index))
+
+    # 2) Build the upload input
+    upload =
+      file_input(live_view, "#basic-uploads-form", :exhibit, [
+        %{name: "photo.png", content: "ok"}
+      ])
+
+    # 3) Render the form change from the input
+    live_view |> form("#basic-uploads-form") |> render_change(upload)
+
+    # 4) Assert on pending files
+    assert live_view
+           |> has_element?("section.pending-uploads figcaption", "photo.png (2)")
+  end
+
   import DropsWeb.UploadSupport
 
   test "uploading a file", %{conn: conn} do
