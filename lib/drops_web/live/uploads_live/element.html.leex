@@ -1,0 +1,12 @@
+<h2>FileComponent Example</h2>
+<p>This example wraps <code>live_file_input</code> in a stateless LiveComponent.</p>
+
+<form phx-change="change" phx-submit="submit">
+<%= if @selected_file do %>
+  <%= inspect @selected_file %>
+  <button type="button" phx-click="remove" phx-disable-with="Removing...">Remove</button>
+<% else %>
+<%= live_component(@socket, DropsWeb.FileComponent, file: @uploads.file) %>
+<% end %>
+<button type="submit" phx-disable-with="Uploading..."<%= if @selected_file, do: " disabled" %>>Upload</button>
+</form>
