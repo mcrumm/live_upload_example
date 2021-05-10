@@ -13,7 +13,7 @@ defmodule DropsWeb.UploadsLive.Auto do
        accept: :any,
        max_entries: 10,
        max_file_size: 100_000_000,
-       chunk_size: 1_024,
+       chunk_size: 256,
        auto_upload: true,
        progress: &handle_progress/3
      )}

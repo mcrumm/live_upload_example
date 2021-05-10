@@ -6,6 +6,8 @@
   <dl>
     <dt><%= link("Basic Demo", to: Routes.basic_uploads_path(@socket, :index)) %></dt>
     <dd>Demonstrates basic upload features.</dd>
+    <dt><%= link("Auto Upload Demo", to: Routes.uploads_auto_path(@socket, :index)) %></dt>
+    <dd>Demonstrates auto uploads by consuming entries in the progress callback.</dd>
     <dt><%= link("Component Demo", to: Routes.component_uploads_path(@socket, :index)) %></dt>
     <dd>Demonstrates uploads within a LiveComponent.</dd>
     <dt><%= link("Multiple Input Demo", to: Routes.multi_input_uploads_path(@socket, :index)) %></dt>
