@@ -4,17 +4,17 @@
   <p>The following is a list of live upload demos:</p>
 
   <dl>
-    <dt><%= link("Basic Demo", to: Routes.basic_uploads_path(@socket, :index)) %></dt>
+    <dt><%= live_redirect("Basic Demo", to: Routes.basic_uploads_path(@socket, :index)) %></dt>
     <dd>Demonstrates basic upload features.</dd>
-    <dt><%= link("Auto Upload Demo", to: Routes.uploads_auto_path(@socket, :index)) %></dt>
+    <dt><%= live_redirect("Auto Upload Demo", to: Routes.uploads_auto_path(@socket, :index)) %></dt>
     <dd>Demonstrates auto uploads by consuming entries in the progress callback.</dd>
-    <dt><%= link("Component Demo", to: Routes.component_uploads_path(@socket, :index)) %></dt>
+    <dt><%= live_redirect("Component Demo", to: Routes.component_uploads_path(@socket, :index)) %></dt>
     <dd>Demonstrates uploads within a LiveComponent.</dd>
-    <dt><%= link("Multiple Input Demo", to: Routes.multi_input_uploads_path(@socket, :index)) %></dt>
+    <dt><%= live_redirect("Multiple Input Demo", to: Routes.multi_input_uploads_path(@socket, :index)) %></dt>
     <dd>Demonstrates multiple live file inputs within a single form.</dd>
-    <dt><%= link("External Demo: Auto Uploads", to: Routes.external_auto_path(@socket, :index)) %></dt>
+    <dt><%= live_redirect("External Demo: Auto Uploads", to: Routes.external_auto_path(@socket, :index)) %></dt>
     <dd>Demonstrates automatic uploads with an external (client-side) uploader.</dd>
-    <dt><%= link("Uploader Demo", to: Routes.uploader_demo_path(@socket, :index)) %></dt>
+    <dt><%= live_redirect("Uploader Demo", to: Routes.uploader_demo_path(@socket, :index)) %></dt>
     <dd>A multi-step uploader demo to stress-test component uploads.</dd>
   </dl>
 </section>

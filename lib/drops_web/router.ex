@@ -17,17 +17,19 @@ defmodule DropsWeb.Router do
   scope "/", DropsWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
-    live "/uploader", UploaderLive.Demo, :index
-    live "/uploader/start", UploaderLive.Demo, :start
-    live "/uploader/done", UploaderLive.Demo, :done
-    live "/uploader/brb", UploaderLive.Demo, :continue
+    live_session :default do
+      live "/", PageLive, :index
+      live "/uploader", UploaderLive.Demo, :index
+      live "/uploader/start", UploaderLive.Demo, :start
+      live "/uploader/done", UploaderLive.Demo, :done
+      live "/uploader/brb", UploaderLive.Demo, :continue
 
-    live "/uploads/basic", BasicUploadsLive, :index
-    live "/uploads/auto", UploadsLive.Auto, :index
-    live "/uploads/element", UploadsLive.Element, :index
-    live "/uploads/component", ComponentUploadsLive, :index
-    live "/uploads/multi", MultiInputUploadsLive, :index
-    live "/uploads/external/auto", ExternalLive.Auto, :index
+      live "/uploads/basic", BasicUploadsLive, :index
+      live "/uploads/auto", UploadsLive.Auto, :index
+      live "/uploads/element", UploadsLive.Element, :index
+      live "/uploads/component", ComponentUploadsLive, :index
+      live "/uploads/multi", MultiInputUploadsLive, :index
+      live "/uploads/external/auto", ExternalLive.Auto, :index
+    end
   end
 end

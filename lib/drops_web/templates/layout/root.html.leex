@@ -15,7 +15,7 @@
         <nav role="navigation">
           <ul>
             <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-            <li><a href="/">All Demos</a></li>
+            <li><%= live_redirect "All Demos", to: Routes.page_path(@conn, :index) %></li>
           </ul>
         </nav>
         <a href="https://phoenixframework.org/" class="phx-logo">
