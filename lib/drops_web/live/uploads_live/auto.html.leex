@@ -22,6 +22,7 @@
       <h3>Pending Uploads (<%= length(@uploads.exhibit.entries) %>)</h3>
 
       <%= for entry <- @uploads[:exhibit].entries do %>
+        <a href="#" phx-click="cancel-upload" phx-value-ref="<%= entry.ref %>" class="upload-entry__cancel">Cancel Upload</a>
         <pre class="upload-entry"><code><%= inspect entry, pretty: true %></code></pre>
       <% end %>
 

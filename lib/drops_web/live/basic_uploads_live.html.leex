@@ -55,10 +55,7 @@
 
         <div class="upload-entry__details">
           <%# live_img_preview/2 uses an internal hook to render a client-side image preview %>
-          <figure>
-            <%= live_img_preview entry %>
-            <figcaption><%= entry.client_name %> (<%= entry.client_size %>)</figcaption>
-          </figure>
+          <%= live_img_preview entry %>
 
           <%# review the handle_event("cancel-upload") callback in the LiveView %>
           <a href="#" phx-click="cancel-upload" phx-value-ref="<%= entry.ref %>" class="upload-entry__cancel">&times;</a>

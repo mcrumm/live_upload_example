@@ -20,12 +20,17 @@ defmodule DropsWeb.UploadComponent do
           phx-target="<%= @myself %>">
 
       <%= live_file_input @uploads.upload_component_file %>
-
-      <div class="preview"><%= for entry <- @uploads.upload_component_file.entries do %>
-        <%= live_img_preview entry %>
-      <% end %></div>
-
       <button type="submit">Upload</button>
+
+      <section class="upload-entries">
+        <h2>Preview</h2>
+        <div class="upload-entry__details"><%= for entry <- @uploads.upload_component_file.entries do %>
+          <%# live_img_preview/2 uses an internal hook to render a client-side image preview %>
+          <%= live_img_preview entry, class: "preview" %>
+          <%# review the handle_event("cancel") callback %>
+          <a href="#" phx-click="cancel" phx-target="<%= @myself %>" phx-value-ref="<%= entry.ref %>" class="upload-entry__cancel">&times;</a>
+        </div><% end %>
+      </section>
     </form>
     """
   end
@@ -33,6 +38,11 @@ defmodule DropsWeb.UploadComponent do
   @impl true
   def handle_event("validate", _, socket) do
     {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("cancel", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :upload_component_file, ref)}
   end
 
   def handle_event("save", _, socket) do
