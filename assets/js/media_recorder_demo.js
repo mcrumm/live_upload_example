@@ -2,7 +2,7 @@
 // directly in their browser and upload it to the web server (or
 // external source) via LiveView.
 
-function DemoRecorder(stream, mimeType, callback) {
+function SimpleRecorder(stream, mimeType, callback) {
   let chunks = [];
   let recorder = new MediaRecorder(stream, { type: mimeType })
 
@@ -25,14 +25,10 @@ function DemoRecorder(stream, mimeType, callback) {
   }
 }
 
-
 let MediaRecorderDemo = {
-  pushError(reason) {
-    this.pushEvent("media-recorder:client:error", { reason })
-  },
   mounted() {
     if (!('MediaRecorder' in window)) {
-      this.pushError("not_supported")
+      this.pushEvent("media-recorder:client:error", { "reason": "not_supported" })
       return
     }
 
@@ -43,14 +39,14 @@ let MediaRecorderDemo = {
           video: false
         })
 
-        this.recorder = DemoRecorder(stream, "audio/webm", blob => {
+        this.recorder = SimpleRecorder(stream, "audio/webm", blob => {
           blob.name = "My Recording.webm"
           this.upload(name, [blob])
         })
 
         this.pushEvent("media-recorder:client:ready", { name })
       } catch {
-        this.pushError("access_denied")
+        this.pushEvent("media-recorder:client:error", { "reason": "access_denied" })
       }
     })
 
