@@ -100,8 +100,8 @@ defmodule DropsWeb.UploadsLive.MediaRecorder do
       <section class="column">
         <%= if @media_error do %><p class="alert alert-danger"><%= @media_error %></p><% end %>
         <div id="media-recorder-demo" class="controls" phx-hook="MediaRecorderDemo">
-          <button type="button" phx-click="use-mic" id="mic" phx-disable-with="Please wait..." class={if @media_ready, do: "visually-hidden"}>Use Mic</button>
-          <button type="button" phx-click={@record_action} id="record" class={unless @media_ready, do: "visually-hidden"}><%= @record_action %></button>
+          <button type="button" phx-click="use-mic" id="mic" phx-disable-with="Please wait..." class={"button button-outline#{if @media_ready, do: ~S( visually-hidden)}"}>Use Microphone</button>
+          <button type="button" phx-click={@record_action} id="record" class={"button button-outline#{unless @media_ready, do: ~S( visually-hidden)}"}><%= @record_action %></button>
         </div>
         <form id="upload-form" action="#" id="basic-uploads-form" phx-change="validate" phx-submit="submit">
           <%= live_file_input @uploads.clips, class: "visually-hidden" %>
@@ -116,6 +116,9 @@ defmodule DropsWeb.UploadsLive.MediaRecorder do
           <p><%= entry.client_name %></p>
         </div><% end %>
 
+        <%= if Enum.empty?(@uploaded_files) do %>
+        <p>No recordings uploaded, yet.</p>
+        <% end %>
         <%= for path <- @uploaded_files do %><div class="upload-entry">
         <audio controls src={path}>
           Your browser does not support the
