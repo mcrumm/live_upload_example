@@ -77,6 +77,28 @@ output {
   }
 }
 
+/* Styles for the MediaRecorderDemo hook */
+#media-recorder-demo {
+  box-sizing: border-box;
+
+  .button {
+    border-color: #f26f40;
+  }
+
+  .button-outline {
+    font-size: 2rem;
+    transition: all 0.4s ease 0s;
+    cursor: pointer;
+    color: #f26f40;
+
+    &:hover,
+    &:focus {
+      background: #f26f40;
+      color: #fff;
+    }
+  }
+}
+
 /* LiveView specific classes for your customizations */
 .phx-no-feedback.invalid-feedback,
 .phx-no-feedback .invalid-feedback {
@@ -170,4 +192,14 @@ output {
   color: #a94442;
   display: block;
   margin: -1rem 0 2rem;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }

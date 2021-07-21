@@ -27,7 +27,7 @@
     </form>
 
     <%# phx-drop-target on the element provides drag-and-drop %>
-    <section class="pending-uploads" phx-drop-target="<%= @uploads.exhibit.ref %>" style="min-height: 100%;">
+    <section class="pending-uploads" phx-drop-target={@uploads.exhibit.ref} style="min-height: 100%;">
 
       <h3>Pending Uploads</h3>
       <p>You can drag and drop files here, too.</p>
@@ -51,14 +51,14 @@
     <%= for entry <- @uploads.exhibit.entries do %>
       <div class="upload-entry">
         <%# render in-flight progress using the reactive `entry.progress` %>
-        <progress value="<%= entry.progress %>" class="upload-entry__progress" id="<%= entry.ref %>-progress" max="100"> <%= entry.progress %>% </progress>
+        <progress value={entry.progress} class="upload-entry__progress" id={"#{entry.ref}-progress"} max="100"> <%= entry.progress %>% </progress>
 
         <div class="upload-entry__details">
           <%# live_img_preview/2 uses an internal hook to render a client-side image preview %>
           <%= live_img_preview entry %>
 
           <%# review the handle_event("cancel-upload") callback in the LiveView %>
-          <a href="#" phx-click="cancel-upload" phx-value-ref="<%= entry.ref %>" class="upload-entry__cancel">&times;</a>
+          <a href="#" phx-click="cancel-upload" phx-value-ref={entry.ref} class="upload-entry__cancel">&times;</a>
         </div>
 
       <%# upload_errors/2 returns error atoms per upload entry %>
@@ -76,9 +76,9 @@
   <section class="column">
     <h2>My Exhibits</h2>
 
-    <output form="basic-uploads-form" for="<%= @uploads.exhibit.ref %>"><%= for static_path <- @uploaded_files do %>
+    <output form="basic-uploads-form" for={@uploads.exhibit.ref}><%= for static_path <- @uploaded_files do %>
       <figure>
-        <img src="<%= static_path %>" />
+        <img src={static_path} />
         <figcaption><%= static_path %></figcaption>
       </figure>
    <% end %></output>

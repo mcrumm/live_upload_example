@@ -15,11 +15,16 @@ import "../css/app.scss"
 import "phoenix_html"
 import { Socket } from "phoenix"
 import topbar from "topbar"
-import { LiveSocket } from "phoenix_live_view"
+import { LiveSocket } from "./phoenix_live_view"
 import Uploaders from "./uploaders"
+import MediaRecorderDemo from "./media_recorder_demo"
+
+let hooks = {
+    MediaRecorderDemo
+}
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, { params: { _csrf_token: csrfToken }, uploaders: Uploaders })
+let liveSocket = new LiveSocket("/live", Socket, { hooks, params: { _csrf_token: csrfToken }, uploaders: Uploaders })
 
 // Show progress bar on live navigation and form submits
 topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" })
