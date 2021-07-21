@@ -77,6 +77,30 @@ output {
   }
 }
 
+/* Styles for the MediaRecorderDemo hook */
+#media-recorder-demo {
+  box-sizing: border-box;
+
+  button {
+    font-size: 2rem;
+    line-height: inherit;
+    font-weight: 200;
+    width: 200px;
+    background: transparent;
+    border: 4px solid #f26f40;
+    border-radius: 4px;
+    transition: all 0.4s ease 0s;
+    cursor: pointer;
+    color: #f26f40;
+
+    &:hover,
+    &:focus {
+      background: #f26f40;
+      color: #fff;
+    }
+  }
+}
+
 /* LiveView specific classes for your customizations */
 .phx-no-feedback.invalid-feedback,
 .phx-no-feedback .invalid-feedback {

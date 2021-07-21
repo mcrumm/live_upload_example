@@ -15,12 +15,12 @@ import "../css/app.scss"
 import "phoenix_html"
 import { Socket } from "phoenix"
 import topbar from "topbar"
-import { LiveSocket } from "phoenix_live_view"
+import { LiveSocket } from "./phoenix_live_view"
 import Uploaders from "./uploaders"
-import MediaStreamRecorder from "./media_stream_recorder"
+import MediaRecorderDemo from "./media_recorder_demo"
 
 let hooks = {
-    MediaStreamRecorder
+    MediaRecorderDemo
 }
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
