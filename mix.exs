@@ -71,7 +71,7 @@ defmodule Drops.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.deploy": [
-        "sass assets/css/app.scss priv/static/assets/app.css",
+        "cmd sass assets/css/app.scss priv/static/assets/app.css",
         "esbuild default --minify",
         "phx.digest"
       ]
