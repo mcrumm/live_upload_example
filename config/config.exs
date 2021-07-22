@@ -18,6 +18,15 @@ config :drops, DropsWeb.Endpoint,
   pubsub_server: Drops.PubSub,
   live_view: [signing_salt: "1j8NZgI3"]
 
+# Configure esbuild (the version is required)
+config :esbuild,
+  version: "0.12.15",
+  default: [
+    args: ~w(js/app.js --bundle --target=es2016 --outdir=../priv/static/assets),
+    cd: Path.expand("../assets", __DIR__),
+    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+  ]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
