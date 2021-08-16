@@ -30,9 +30,4 @@ defmodule DropsWeb.CropprLive do
 
     {:noreply, assign(socket, :avatar_path, avatar_path)}
   end
-
-  @impl Phoenix.LiveView
-  def handle_event("reset-avatar", _, socket) do
-    {:noreply, assign(socket, :avatar_path, nil)}
-  end
 end
