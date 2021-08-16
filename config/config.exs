@@ -18,9 +18,17 @@ config :drops, DropsWeb.Endpoint,
   pubsub_server: Drops.PubSub,
   live_view: [signing_salt: "1j8NZgI3"]
 
+# Configure dart_sass (the version is required)
+config :dart_sass,
+  version: "1.36.0",
+  default: [
+    args: ~w(css/app.scss ../priv/static/assets/app.css),
+    cd: Path.expand("../assets", __DIR__)
+  ]
+
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.12.15",
+  version: "0.12.18",
   default: [
     args: ~w(js/app.js --bundle --target=es2016 --outdir=../priv/static/assets),
     cd: Path.expand("../assets", __DIR__),

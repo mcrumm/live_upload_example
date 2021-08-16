@@ -35,10 +35,11 @@ defmodule Drops.MixProject do
     [
       {:phoenix, "~> 1.6.0-dev", github: "phoenixframework/phoenix", override: true},
       {:phoenix_ecto, "~> 4.1"},
+      {:dart_sass, "~> 0.1", runtime: Mix.env() == :dev},
       {:ecto_sql, "~> 3.4"},
-      {:esbuild, "~> 0.1", runtime: Mix.env() == :dev},
+      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_live_view, "~> 0.16.0-dev", phoenix_live_view_opts()},
+      {:phoenix_live_view, "~> 0.16.0", phoenix_live_view_opts()},
       {:floki, ">= 0.27.0", only: :test},
       {:phoenix_html, "~> 3.0.0-dev", github: "phoenixframework/phoenix_html", override: true},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -54,7 +55,7 @@ defmodule Drops.MixProject do
     if path = System.get_env("LIVE_VIEW_PATH") do
       [path: path]
     else
-      [github: "phoenixframework/phoenix_live_view"]
+      []
     end
   end
 
@@ -71,7 +72,7 @@ defmodule Drops.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.deploy": [
-        "cmd sass assets/css/app.scss priv/static/assets/app.css",
+        "sass default --no-source-map --style=compressed",
         "esbuild default --minify",
         "phx.digest"
       ]
