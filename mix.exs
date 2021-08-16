@@ -35,7 +35,6 @@ defmodule Drops.MixProject do
     [
       {:phoenix, "~> 1.6.0-dev", github: "phoenixframework/phoenix", override: true},
       {:phoenix_ecto, "~> 4.1"},
-      {:dart_sass, "~> 0.1", runtime: Mix.env() == :dev},
       {:ecto_sql, "~> 3.4"},
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:postgrex, ">= 0.0.0"},
@@ -71,11 +70,7 @@ defmodule Drops.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": [
-        "sass default --no-source-map --style=compressed",
-        "esbuild default --minify",
-        "phx.digest"
-      ]
+      "assets.deploy": ["esbuild default --minify", "phx.digest"]
     ]
   end
 end
