@@ -23,6 +23,8 @@ defmodule DropsWeb.Router do
     live "/uploader/done", UploaderLive.Demo, :done
     live "/uploader/brb", UploaderLive.Demo, :continue
 
+    live "/croppr", CropprLive, :index
+
     live "/uploads/basic", BasicUploadsLive, :index
     live "/uploads/auto", UploadsLive.Auto, :index
     live "/uploads/element", UploadsLive.Element, :index

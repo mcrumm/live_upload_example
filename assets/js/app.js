@@ -1,12 +1,15 @@
 import "../css/app.css"
+import "../vendor/croppr.css"
 import "phoenix_html"
 import { Socket } from "phoenix"
 import topbar from "../vendor/topbar"
 import { LiveSocket } from "phoenix_live_view"
 import Uploaders from "./uploaders"
 import MediaRecorderDemo from "./media_recorder_demo"
+import Croppr from "./croppr"
 
 let hooks = {
+  Croppr,
   MediaRecorderDemo
 }
 
