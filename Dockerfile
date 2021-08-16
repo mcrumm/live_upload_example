@@ -1,9 +1,9 @@
 ARG MIX_ENV="prod"
 
-FROM hexpm/elixir:1.11.2-erlang-23.1.2-alpine-3.12.1 as build
+FROM hexpm/elixir:1.12.1-erlang-24.0.5-alpine-3.14.0 AS build
 
 # install build dependencies
-RUN apk add --no-cache build-base npm git python3 curl
+RUN apk add --no-cache build-base curl git
 
 # prepare build dir
 WORKDIR /app
@@ -19,29 +19,20 @@ ENV MIX_ENV="${MIX_ENV}"
 # install mix dependencies
 COPY mix.exs mix.lock .
 RUN mix deps.get --only $MIX_ENV
-RUN mkdir config
+
 # Dependencies sometimes use compile-time configuration. Copying
 # these compile-time config files before we compile dependencies
 # ensures that any relevant config changes will trigger the dependencies
 # to be re-compiled.
-COPY config/config.exs config/$MIX_ENV.exs config/
+COPY config/config.exs config/$MIX_ENV.exs ./config/
 RUN mix deps.compile
-
-# build assets
-COPY assets/package.json assets/package-lock.json ./assets/
-# install all npm dependencies from scratch
-RUN npm --prefix ./assets ci --progress=false --no-audit --loglevel=error
-
-COPY priv priv
 
 # Note: if your project uses a tool like https://purgecss.com/,
 # which customizes asset compilation based on what it finds in
-# your Elixir templates, you will need to move the asset compilation step
-# down so that `lib` is available.
+# your Elixir templates, you will need to move the asset compilation
+# step down so that `lib` is available.
 COPY assets assets
-# use webpack to compile npm dependencies - https://www.npmjs.com/package/webpack-deploy
-RUN npm run --prefix ./assets deploy
-RUN mix phx.digest
+RUN mix assets.deploy
 
 # compile and build the release
 COPY lib lib
@@ -52,11 +43,10 @@ COPY config/runtime.exs config/
 # COPY rel rel
 RUN mix release
 
-
 # Start a new build stage so that the final image will only contain
 # the compiled release and other runtime necessities
-FROM alpine:3.12.1 AS app
-RUN apk add --no-cache openssl ncurses-libs
+FROM alpine:3.14.0 AS app
+RUN apk add --no-cache libstdc++ openssl ncurses-libs
 
 ARG MIX_ENV
 ENV USER="elixir"

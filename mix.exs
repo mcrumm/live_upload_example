@@ -36,8 +36,9 @@ defmodule Drops.MixProject do
       {:phoenix, "~> 1.6.0-dev", github: "phoenixframework/phoenix", override: true},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
+      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_live_view, "~> 0.16.0-dev", phoenix_live_view_opts()},
+      {:phoenix_live_view, "~> 0.16.0", phoenix_live_view_opts()},
       {:floki, ">= 0.27.0", only: :test},
       {:phoenix_html, "~> 3.0.0-dev", github: "phoenixframework/phoenix_html", override: true},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -53,7 +54,7 @@ defmodule Drops.MixProject do
     if path = System.get_env("LIVE_VIEW_PATH") do
       [path: path]
     else
-      [github: "phoenixframework/phoenix_live_view", branch: "mc-hook-upload-methods"]
+      []
     end
   end
 
@@ -68,7 +69,8 @@ defmodule Drops.MixProject do
       setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      "assets.deploy": ["esbuild default --minify", "phx.digest"]
     ]
   end
 end
