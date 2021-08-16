@@ -23,11 +23,9 @@ defmodule DropsWeb.CropprLive do
         Routes.static_path(socket, "/uploads/#{Path.basename(dest)}")
       end)
 
-    socket =
-      socket
-      |> assign(:avatar_path, avatar_path)
-      |> push_event("croppr:destroy", %{"name" => "avatar"})
-
-    {:noreply, assign(socket, :avatar_path, avatar_path)}
+    {:noreply,
+     socket
+     |> assign(:avatar_path, avatar_path)
+     |> push_event("croppr:destroy", %{"name" => "avatar"})}
   end
 end
