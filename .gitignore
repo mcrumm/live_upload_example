@@ -29,6 +29,9 @@ npm-debug.log
 /assets/node_modules/
 
 # Since we are building assets from assets/,
-# we ignore priv/static. You may want to comment
+# we ignore priv/static/assets. You may want to comment
 # this depending on your deployment strategy.
 /priv/static/assets/
+
+# Uploads directory
+/priv/static/uploads/
