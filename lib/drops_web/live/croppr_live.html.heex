@@ -1,0 +1,52 @@
+<h1>Croppr.js Example</h1>
+<details>
+  <summary>This example demonstrates a client-side upload integration using the following:</summary>
+  <ul>
+    <li><a href="https://github.com/jamesssooi/Croppr.js">Croppr.js</a>: Lightweight, awesome, vanilla JS image cropper.</li>
+    <li><code><a href="https://hexdocs.pm/phoenix_live_view/js-interop.html#client-hooks">upload(name, files)</a></code> client hook method</li>
+  </ul>
+</details>
+
+<section class="row upload-demo">
+  <section class="column">
+
+    <h2>Upload</h2>
+
+    <div id="croppr" class="croppr-wrapper" phx-hook="Croppr" phx-update="ignore" data-upload-name="avatar">
+      <p style="border:1px dotted grey;height:3rem;text-align:center;padding:1rem;line-height:1.2rem;">Drop avatar here.</p>
+    </div>
+
+  </section>
+
+  <section class="column">
+
+    <%= if @avatar_path do %>
+      <h2>Avatar</h2>
+      <figure>
+        <img src={@avatar_path} />
+        <figcaption><%= @avatar_path %></figcaption>
+      </figure>
+    <% else %>
+      <h2>Preview</h2>
+
+      <%= for entry <- @uploads.avatar.entries do %>
+      <div class="upload-entry">
+        <%# render in-flight progress using the reactive `entry.progress` %>
+        <progress value={entry.progress} class="upload-entry__progress" id={"#{entry.ref}-progress"} max="100"> <%= entry.progress %>% </progress>
+
+        <div class="upload-entry__details">
+          <%# live_img_preview/2 uses an internal hook to render a client-side image preview %>
+          <%= live_img_preview entry %>
+        </div>
+      </div>
+      <% end %>
+    <% end %>
+
+    <form id="upload" method="post" action="#" phx-submit="save" phx-change="validate">
+      <%= live_file_input(@uploads.avatar, class: "visually-hidden") %>
+      <%= unless Enum.empty?(@uploads.avatar.entries) do %>
+      <%= submit("Save", phx_disable_with: "Uploading...", style: "margin-top:1rem;") %>
+      <% end %>
+    </form>
+  </section>
+</section>
