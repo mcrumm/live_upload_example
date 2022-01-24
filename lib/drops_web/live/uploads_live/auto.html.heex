@@ -17,12 +17,12 @@
       <%= live_file_input @uploads.exhibit %>
     </form>
 
-    <section class="pending-uploads" phx-drop-target="<%= @uploads.exhibit.ref %>" style="min-height: 100%;">
+    <section class="pending-uploads" phx-drop-target={@uploads.exhibit.ref} style="min-height: 100%;">
 
       <h3>Pending Uploads (<%= length(@uploads.exhibit.entries) %>)</h3>
 
       <%= for entry <- @uploads[:exhibit].entries do %>
-        <a href="#" phx-click="cancel-upload" phx-value-ref="<%= entry.ref %>" class="upload-entry__cancel">Cancel Upload</a>
+        <a href="#" phx-click="cancel-upload" phx-value-ref={entry.ref} class="upload-entry__cancel">Cancel Upload</a>
         <pre class="upload-entry"><code><%= inspect entry, pretty: true %></code></pre>
       <% end %>
 
@@ -34,7 +34,7 @@
   <section class="column">
     <h2>UUIDs (<%= length(@uploaded_files) %>)</h2>
 
-    <output form="auto-form" for="<%= @uploads.exhibit.ref %>"><%= for uuid <- @uploaded_files do %>
+    <output form="auto-form" for={@uploads.exhibit.ref}><%= for uuid <- @uploaded_files do %>
       <p><%= uuid %></p>
    <% end %></output>
 

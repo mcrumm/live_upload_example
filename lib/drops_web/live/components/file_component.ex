@@ -3,10 +3,10 @@ defmodule DropsWeb.FileComponent do
 
   @impl true
   def render(assigns) do
-    ~L"""
+    ~H"""
     <div class="file-component"><%= for entry <- @file.entries do %>
       <div class="upload-entry">
-        <progress value="<%= entry.progress %>" class="upload-entry__progress" id="<%= entry.ref %>-progress" max="100"> <%= entry.progress %>% </progress>
+        <progress value={entry.progress} class="upload-entry__progress" id={"#{entry.ref}-progress"} max="100"> <%= entry.progress %>% </progress>
       </div><% end %>
       <%= live_file_input(@file) %>
     </div>

@@ -17,7 +17,7 @@
       <%= live_file_input @uploads.exhibit %>
     </form>
 
-    <section class="pending-uploads" phx-drop-target="<%= @uploads.exhibit.ref %>" style="min-height: 100%;">
+    <section class="pending-uploads" phx-drop-target={@uploads.exhibit.ref} style="min-height: 100%;">
 
       <h3>Pending Uploads (<%= length(@uploads.exhibit.entries) %>)</h3>
 
@@ -33,7 +33,7 @@
   <section class="column">
     <h2>UUIDs (<%= length(@uploaded_files) %>)</h2>
 
-    <output form="external-auto-form" for="<%= @uploads.exhibit.ref %>"><%= for uuid <- @uploaded_files do %>
+    <output form="external-auto-form" for={@uploads.exhibit.ref}><%= for uuid <- @uploaded_files do %>
       <p><%= uuid %></p>
    <% end %></output>
 
