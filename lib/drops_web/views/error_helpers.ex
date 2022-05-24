@@ -53,4 +53,5 @@ defmodule DropsWeb.ErrorHelpers do
   def upload_error_to_string(:too_large), do: "The file is too large"
   def upload_error_to_string(:too_many_files), do: "You have selected too many files"
   def upload_error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
+  def upload_error_to_string(:external_client_failure), do: "Something went terribly wrong"
 end

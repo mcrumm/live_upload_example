@@ -46,4 +46,8 @@ Uploaders.NoWait = function (entries) {
   })
 }
 
+Uploaders.ImmediatelyError = function (entries) {
+  entries.forEach(entry => entry.error())
+}
+
 export default Uploaders

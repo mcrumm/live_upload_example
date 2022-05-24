@@ -20,6 +20,8 @@
     <dd>Record and upload an audio sample directly in the browser.</dd>
     <dt><%= link("Croppr.js Demo", to: Routes.croppr_path(@socket, :index)) %></dt>
     <dd>Crop and manipulate images before uploading.</dd>
+    <dt><%= link("Issue 2037", to: Routes.issues_external_upload_single_entry_path(@socket, :index)) %></dt>
+    <dd>External uploads bug when <code>max_entries: 1</code> and a client error occurs.</dd>
   </dl>
 </section>
 

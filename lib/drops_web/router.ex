@@ -32,5 +32,7 @@ defmodule DropsWeb.Router do
     live "/uploads/component", ComponentUploadsLive, :index
     live "/uploads/multi", MultiInputUploadsLive, :index
     live "/uploads/external/auto", ExternalLive.Auto, :index
+
+    live "/issues/2037", IssuesLive.ExternalUploadSingleEntry, :index
   end
 end
