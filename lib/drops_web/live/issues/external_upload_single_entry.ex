@@ -45,6 +45,9 @@ defmodule DropsWeb.IssuesLive.ExternalUploadSingleEntry do
               <p class="alert alert-danger"><%= upload_error_to_string(error) %></p>
             <% end %>
             <pre class="upload-entry"><code><%= inspect(entry, pretty: true) %></code></pre>
+            <button type="button" class="button" phx-click="cancel-upload" phx-value-ref={entry.ref}>
+              Cancel Upload
+            </button>
           <% end %>
         </section>
       </section>
