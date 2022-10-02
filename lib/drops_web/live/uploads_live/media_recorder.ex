@@ -26,7 +26,8 @@ defmodule DropsWeb.UploadsLive.MediaRecorder do
         consume_uploaded_entry(socket, entry, fn %{path: path} ->
           dest = Path.join(Drops.uploads_priv_dir(), Path.basename(path))
           File.cp!(path, dest)
-          Routes.static_path(socket, "/uploads/#{Path.basename(dest)}")
+          static_path = Routes.static_path(socket, "/uploads/#{Path.basename(dest)}")
+          {:ok, static_path}
         end)
 
       {:noreply, update(socket, :uploaded_files, &[path | &1])}

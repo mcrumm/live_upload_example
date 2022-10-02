@@ -25,7 +25,7 @@ defmodule DropsWeb.ExternalLive.Auto do
     if entry.done? do
       uuid =
         consume_uploaded_entry(socket, entry, fn _meta ->
-          entry.uuid
+          {:ok, entry.uuid}
         end)
 
       {:noreply, update(socket, :uploaded_files, &[uuid | &1])}
