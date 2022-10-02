@@ -12,12 +12,14 @@ defmodule DropsWeb.BasicUploadsLiveTest do
         %{name: "photo.png", content: "ok"}
       ])
 
+    entry_ref = get_in(upload.entries, [Access.at(0), "ref"])
+
     # 3) Render the form change from the input
     live_view |> form("#basic-uploads-form") |> render_change(upload)
 
-    # 4) Assert on pending files
+    # 4) Assert on pending upload entry
     assert live_view
-           |> has_element?("section.pending-uploads figcaption", "photo.png (2)")
+           |> has_element?("section.pending-uploads #entry-#{entry_ref}")
   end
 
   import DropsWeb.UploadSupport
