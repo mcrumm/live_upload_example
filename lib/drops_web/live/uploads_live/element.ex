@@ -16,7 +16,7 @@ defmodule DropsWeb.UploadsLive.Element do
 
   @impl true
   def handle_event("submit", _, socket) do
-    [file] = consume_uploaded_entries(socket, :file, fn entry, _ -> entry end)
+    [file] = consume_uploaded_entries(socket, :file, fn entry, _ -> {:ok, entry} end)
     {:noreply, update_file(socket, file)}
   end
 

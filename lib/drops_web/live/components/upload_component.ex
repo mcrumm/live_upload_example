@@ -57,7 +57,7 @@ defmodule DropsWeb.UploadComponent do
   defp copy_to_destination!(%{path: path}, _) do
     dest = Path.join(Drops.uploads_priv_dir(), Path.basename(path))
     File.cp!(path, dest)
-    Path.basename(dest)
+    {:ok, Path.basename(dest)}
   end
 
   defp hoist_file(socket, filename) do
