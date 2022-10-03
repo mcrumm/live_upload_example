@@ -104,9 +104,7 @@ defmodule DropsWeb.UploadsLive.MediaRecorder do
 
     <section class="row upload-demo">
       <section class="column">
-        <%= if @media_error do %>
-          <p class="alert alert-danger"><%= @media_error %></p>
-        <% end %>
+        <p :if={@media_error} class="alert alert-danger"><%= @media_error %></p>
         <div id="media-recorder-demo" class="controls" phx-hook="MediaRecorderDemo">
           <button
             type="button"
@@ -152,9 +150,8 @@ defmodule DropsWeb.UploadsLive.MediaRecorder do
           </div>
         <% end %>
 
-        <%= if Enum.empty?(@uploaded_files) do %>
-          <p>No recordings uploaded, yet.</p>
-        <% end %>
+        <p :if={Enum.empty?(@uploaded_files)}>No recordings uploaded, yet.</p>
+
         <%= for path <- @uploaded_files do %>
           <div class="upload-entry">
             <audio controls src={path}>

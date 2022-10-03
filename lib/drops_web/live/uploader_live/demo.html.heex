@@ -5,30 +5,28 @@
 <p>You can start and stop the demo multiple times.</p>
 
 <section class={["row", "upload-demo", @live_action]}>
-  <article class="column">
-    <%= if @live_action == :index do %>
-      <h2>Welcome!</h2>
-      <%= live_patch("Get started", to: Routes.uploader_demo_path(@socket, :start)) %>
-    <% end %>
+  <article :if={@live_action == :index} class="column">
+    <h2>Welcome!</h2>
+    <%= live_patch("Get started", to: Routes.uploader_demo_path(@socket, :start)) %>
+  </article>
 
-    <%= if @live_action == :start do %>
-      <h2>Upload</h2>
-      <%= live_component(DropsWeb.UploadComponent, id: :file) %>
-      <%= live_patch("Close", to: Routes.uploader_demo_path(@socket, :index)) %>
-    <% end %>
+  <article :if={@live_action == :start} class="column">
+    <h2>Upload</h2>
+    <%= live_component(DropsWeb.UploadComponent, id: :file) %>
+    <%= live_patch("Close", to: Routes.uploader_demo_path(@socket, :index)) %>
+  </article>
 
-    <%= if @live_action == :done do %>
-      <h2>You did it!</h2>
+  <article :if={@live_action == :done} class="column">
+    <h2>You did it!</h2>
 
-      <figure>
-        <img src={@file} />
-        <figcaption>DONE:<%= @file %></figcaption>
-      </figure>
+    <figure>
+      <img src={@file} />
+      <figcaption>DONE:<%= @file %></figcaption>
+    </figure>
 
-      <%= live_redirect("Again, again!", to: Routes.uploader_demo_path(@socket, :start)) %> | <%= live_patch(
-        "All done",
-        to: Routes.page_path(@socket, :index)
-      ) %>
-    <% end %>
+    <%= live_redirect("Again, again!", to: Routes.uploader_demo_path(@socket, :start)) %> | <%= live_patch(
+      "All done",
+      to: Routes.page_path(@socket, :index)
+    ) %>
   </article>
 </section>
