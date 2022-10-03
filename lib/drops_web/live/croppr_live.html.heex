@@ -31,11 +31,11 @@
 
       <%= for entry <- @uploads.avatar.entries do %>
       <div class="upload-entry">
-        <%# render in-flight progress using the reactive `entry.progress` %>
+        <% # render in-flight progress using the reactive `entry.progress` %>
         <progress value={entry.progress} class="upload-entry__progress" id={"#{entry.ref}-progress"} max="100"> <%= entry.progress %>% </progress>
 
         <div class="upload-entry__details">
-          <%# live_img_preview/1 uses an internal hook to render a client-side image preview %>
+          <% # live_img_preview/1 uses an internal hook to render a client-side image preview %>
           <.live_img_preview entry={entry} />
         </div>
       </div>
