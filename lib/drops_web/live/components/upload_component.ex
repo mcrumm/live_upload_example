@@ -27,7 +27,7 @@ defmodule DropsWeb.UploadComponent do
         <h2>Preview</h2>
         <%= for entry <- @uploads.upload_component_file.entries do %>
           <div class="upload-entry__details">
-            <% # live_img_preview/2 uses an internal hook to render a client-side image preview %>
+            <% # <.live_img_preview> uses an internal hook to render a client-side image preview %>
             <.live_img_preview entry={entry} class="preview" />
             <% # review the handle_event("cancel") callback %>
             <a
