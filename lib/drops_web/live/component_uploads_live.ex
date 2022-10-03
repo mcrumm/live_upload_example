@@ -19,13 +19,11 @@ defmodule DropsWeb.ComponentUploadsLive do
         <h2>Upload</h2>
         <%= live_component(DropsWeb.UploadComponent, id: :avatar) %>
       </article>
-      <article class="column avatar">
-        <%= if @avatar_path do %>
-          <h2>Complete!</h2>
-          <figure>
-            <img src={@avatar_path} />
-          </figure>
-        <% end %>
+      <article :if={@avatar_path} class="column avatar">
+        <h2>Complete!</h2>
+        <figure>
+          <img src={@avatar_path} />
+        </figure>
       </article>
     </section>
     """
