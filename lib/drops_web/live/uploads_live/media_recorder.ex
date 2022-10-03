@@ -94,39 +94,75 @@ defmodule DropsWeb.UploadsLive.MediaRecorder do
   def render(assigns) do
     ~H"""
     <h2>MediaRecorder Demo</h2>
-    <p>Within this demonstration you can record an audio sample and will be automatically uploaded to the server.</p>
-    <p>Thanks to <a href="https://twitter.com/philnash">@philnash</a> for the <a href="https://www.twilio.com/blog/mediastream-recording-api">example that inspired this demo</a>.</p>
+    <p>
+      Within this demonstration you can record an audio sample and will be automatically uploaded to the server.
+    </p>
+    <p>
+      Thanks to <a href="https://twitter.com/philnash">@philnash</a>
+      for the <a href="https://www.twilio.com/blog/mediastream-recording-api">example that inspired this demo</a>.
+    </p>
 
     <section class="row upload-demo">
       <section class="column">
-        <%= if @media_error do %><p class="alert alert-danger"><%= @media_error %></p><% end %>
+        <%= if @media_error do %>
+          <p class="alert alert-danger"><%= @media_error %></p>
+        <% end %>
         <div id="media-recorder-demo" class="controls" phx-hook="MediaRecorderDemo">
-          <button type="button" phx-click="use-mic" id="mic" phx-disable-with="Please wait..." class={"button button-outline#{if @media_ready, do: ~S( visually-hidden)}"}>Use Microphone</button>
-          <button type="button" phx-click={@record_action} id="record" class={"button button-outline#{unless @media_ready, do: ~S( visually-hidden)}"}><%= @record_action %></button>
+          <button
+            type="button"
+            phx-click="use-mic"
+            id="mic"
+            phx-disable-with="Please wait..."
+            class={"button button-outline#{if @media_ready, do: ~S( visually-hidden)}"}
+          >
+            Use Microphone
+          </button>
+          <button
+            type="button"
+            phx-click={@record_action}
+            id="record"
+            class={"button button-outline#{unless @media_ready, do: ~S( visually-hidden)}"}
+          >
+            <%= @record_action %>
+          </button>
         </div>
-        <form id="upload-form" action="#" id="basic-uploads-form" phx-change="validate" phx-submit="submit">
+        <form
+          id="upload-form"
+          action="#"
+          id="basic-uploads-form"
+          phx-change="validate"
+          phx-submit="submit"
+        >
           <.live_file_input upload={@uploads.clips} class="visually-hidden" />
         </form>
       </section>
       <section class="column">
         <h2>Recordings</h2>
-        <%= for entry <- @uploads.clips.entries do %><div class="upload-entry">
-          <progress value={entry.progress} class="upload-entry__progress" id={"#{entry.ref}-progress"} max="100">
-          <%= entry.progress %>%
-          </progress>
-          <p><%= entry.client_name %></p>
-        </div><% end %>
+        <%= for entry <- @uploads.clips.entries do %>
+          <div class="upload-entry">
+            <progress
+              value={entry.progress}
+              class="upload-entry__progress"
+              id={"#{entry.ref}-progress"}
+              max="100"
+            >
+              <%= entry.progress %>%
+            </progress>
+            <p><%= entry.client_name %></p>
+          </div>
+        <% end %>
 
         <%= if Enum.empty?(@uploaded_files) do %>
-        <p>No recordings uploaded, yet.</p>
+          <p>No recordings uploaded, yet.</p>
         <% end %>
-        <%= for path <- @uploaded_files do %><div class="upload-entry">
-        <audio controls src={path}>
-          Your browser does not support the
-          <code>audio</code> element.
-        </audio>
-        <p><code>audio.src = <%= path %></code></p>
-        </div><% end %>
+        <%= for path <- @uploaded_files do %>
+          <div class="upload-entry">
+            <audio controls src={path}>
+              Your browser does not support the <code>audio</code> element.
+            </audio>
+            <p><code>audio.src = <%= path %></code></p>
+          </div>
+        <% end %>
       </section>
     </section>
     """

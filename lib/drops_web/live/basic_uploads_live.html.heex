@@ -2,33 +2,73 @@
 <details>
   <summary>The demo showcases the following features of live uploads:</summary>
   <ul>
-    <li><code><a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#allow_upload/3">allow_upload/3</a></code> specification</li>
-    <li><code><a href="https://hexdocs.pm/phoenix_live_view/Phoenix.Component.html#live_file_input/1">live_file_input/1</a></code></li>
-    <li><code><a href="https://hexdocs.pm/phoenix_live_view/Phoenix.Component.html#live_img_preview/2">live_img_preview/2</a></code></li>
-    <li><code><a href="https://hexdocs.pm/phoenix_live_view/Phoenix.Component.html#upload_errors/2">upload_errors/1,2</a></code></li>
+    <li>
+      <code>
+        <a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#allow_upload/3">
+          allow_upload/3
+        </a>
+      </code>
+      specification
+    </li>
+    <li>
+      <code>
+        <a href="https://hexdocs.pm/phoenix_live_view/Phoenix.Component.html#live_file_input/1">
+          live_file_input/1
+        </a>
+      </code>
+    </li>
+    <li>
+      <code>
+        <a href="https://hexdocs.pm/phoenix_live_view/Phoenix.Component.html#live_img_preview/2">
+          live_img_preview/2
+        </a>
+      </code>
+    </li>
+    <li>
+      <code>
+        <a href="https://hexdocs.pm/phoenix_live_view/Phoenix.Component.html#upload_errors/2">
+          upload_errors/1,2
+        </a>
+      </code>
+    </li>
     <li><code>entry.progress</code></li>
-    <li><code><a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#cancel_upload/3">cancel_upload/3</a></code></li>
-    <li><code><a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#consume_uploaded_entries/3">consume_uploaded_entries/3</a></code> on submit</li>
+    <li>
+      <code>
+        <a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#cancel_upload/3">
+          cancel_upload/3
+        </a>
+      </code>
+    </li>
+    <li>
+      <code>
+        <a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#consume_uploaded_entries/3">
+          consume_uploaded_entries/3
+        </a>
+      </code>
+      on submit
+    </li>
   </ul>
 </details>
 
 <section class="row upload-demo">
   <section class="column">
-
     <h2>Upload</h2>
 
-    <% #you can reference the upload config to drive informational messages %>
+    <% # you can reference the upload config to drive informational messages %>
     <p>You may add up to <%= @uploads.exhibit.max_entries %> exhibits at a time.</p>
 
-    <% #this form contains the live_file_input - you must bind phx-change and phx-submit on the form %>
+    <% # this form contains the live_file_input - you must bind phx-change and phx-submit on the form %>
     <form id="basic-uploads-form" phx-change="validate" phx-submit="save">
       <.live_file_input upload={@uploads.exhibit} />
       <button type="submit" phx-disable-with="Uploading...">Upload</button>
     </form>
 
-    <% #phx-drop-target on the element provides drag-and-drop %>
-    <section class="pending-uploads" phx-drop-target={@uploads.exhibit.ref} style="min-height: 100%;">
-
+    <% # phx-drop-target on the element provides drag-and-drop %>
+    <section
+      class="pending-uploads"
+      phx-drop-target={@uploads.exhibit.ref}
+      style="min-height: 100%;"
+    >
       <h3>Pending Uploads</h3>
       <p>You can drag and drop files here, too.</p>
 
@@ -36,8 +76,7 @@
         <p class="alert alert-danger"><%= upload_error_to_string(error) %></p>
       <% end %>
 
-    <%
-      # the entries comprehension does the following:
+      <% # the entries comprehension does the following:
 
       #  * invokes live_img_preview/2 which renders a client-side image preview
 
@@ -45,43 +84,53 @@
 
       #  * renders a link the user can click to to trigger the `cancel-upload` event for an entry
 
-      #  * renders any existing errors for the entry
-    %>
-    <%= for entry <- @uploads.exhibit.entries do %>
-      <div class="upload-entry" id={"entry-#{entry.ref}"}>
-        <% # render in-flight progress using the reactive `entry.progress` %>
-        <progress value={entry.progress} class="upload-entry__progress" id={"#{entry.ref}-progress"} max="100"> <%= entry.progress %>% </progress>
+      #  * renders any existing errors for the entry %>
+      <%= for entry <- @uploads.exhibit.entries do %>
+        <div class="upload-entry" id={"entry-#{entry.ref}"}>
+          <% # render in-flight progress using the reactive `entry.progress` %>
+          <progress
+            value={entry.progress}
+            class="upload-entry__progress"
+            id={"#{entry.ref}-progress"}
+            max="100"
+          >
+            <%= entry.progress %>%
+          </progress>
 
-        <div class="upload-entry__details">
-          <% # live_img_preview/2 uses an internal hook to render a client-side image preview %>
-          <.live_img_preview entry={entry} />
+          <div class="upload-entry__details">
+            <% # live_img_preview/2 uses an internal hook to render a client-side image preview %>
+            <.live_img_preview entry={entry} />
 
-          <% # review the handle_event("cancel-upload") callback in the LiveView %>
-          <a href="#" phx-click="cancel-upload" phx-value-ref={entry.ref} class="upload-entry__cancel">&times;</a>
+            <% # review the handle_event("cancel-upload") callback in the LiveView %>
+            <a
+              href="#"
+              phx-click="cancel-upload"
+              phx-value-ref={entry.ref}
+              class="upload-entry__cancel"
+            >
+              &times;
+            </a>
+          </div>
+
+          <% # upload_errors/2 returns error atoms per upload entry %>
+          <%= for error <- upload_errors(@uploads.exhibit, entry) do %>
+            <p class="alert alert-danger"><%= upload_error_to_string(error) %></p>
+          <% end %>
         </div>
-
-      <% # upload_errors/2 returns error atoms per upload entry %>
-      <%= for error <- upload_errors(@uploads.exhibit, entry) do %>
-        <p class="alert alert-danger"><%= upload_error_to_string(error) %></p>
       <% end %>
-
-      </div>
-
-    <% end %>
     </section>
-
   </section>
 
   <section class="column">
     <h2>My Exhibits</h2>
 
-    <output form="basic-uploads-form" for={@uploads.exhibit.ref}><%= for static_path <- @uploaded_files do %>
-      <figure>
-        <img src={static_path} />
-        <figcaption><%= static_path %></figcaption>
-      </figure>
-   <% end %></output>
-
+    <output form="basic-uploads-form" for={@uploads.exhibit.ref}>
+      <%= for static_path <- @uploaded_files do %>
+        <figure>
+          <img src={static_path} />
+          <figcaption><%= static_path %></figcaption>
+        </figure>
+      <% end %>
+    </output>
   </section>
-
 </section>
