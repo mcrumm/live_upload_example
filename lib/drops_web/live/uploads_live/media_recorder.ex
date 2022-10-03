@@ -105,7 +105,7 @@ defmodule DropsWeb.UploadsLive.MediaRecorder do
           <button type="button" phx-click={@record_action} id="record" class={"button button-outline#{unless @media_ready, do: ~S( visually-hidden)}"}><%= @record_action %></button>
         </div>
         <form id="upload-form" action="#" id="basic-uploads-form" phx-change="validate" phx-submit="submit">
-          <%= live_file_input @uploads.clips, class: "visually-hidden" %>
+          <.live_file_input upload={@uploads.clips} class="visually-hidden" />
         </form>
       </section>
       <section class="column">

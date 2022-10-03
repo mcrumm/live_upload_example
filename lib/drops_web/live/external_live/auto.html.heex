@@ -14,7 +14,7 @@
     <% end %>
 
     <form id="external-auto-form" phx-change="validate">
-      <%= live_file_input @uploads.exhibit %>
+      <.live_file_input upload={@uploads.exhibit} />
     </form>
 
     <section class="pending-uploads" phx-drop-target={@uploads.exhibit.ref} style="min-height: 100%;">
