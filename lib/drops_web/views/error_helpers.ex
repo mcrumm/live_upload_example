@@ -48,7 +48,7 @@ defmodule DropsWeb.ErrorHelpers do
   @doc """
   Returns an error message for an upload error.
 
-  See [`upload_errors/2`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.Helpers.html#upload_errors/2).
+  See [`upload_errors/2`](`Phoenix.Component.upload_errors/2`).
   """
   def upload_error_to_string(:too_large), do: "The file is too large"
   def upload_error_to_string(:too_many_files), do: "You have selected too many files"

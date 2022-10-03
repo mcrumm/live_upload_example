@@ -35,15 +35,15 @@
         <progress value={entry.progress} class="upload-entry__progress" id={"#{entry.ref}-progress"} max="100"> <%= entry.progress %>% </progress>
 
         <div class="upload-entry__details">
-          <%# live_img_preview/2 uses an internal hook to render a client-side image preview %>
-          <%= live_img_preview entry %>
+          <%# live_img_preview/1 uses an internal hook to render a client-side image preview %>
+          <.live_img_preview entry={entry} />
         </div>
       </div>
       <% end %>
     <% end %>
 
     <form id="upload" method="post" action="#" phx-submit="save" phx-change="validate">
-      <%= live_file_input(@uploads.avatar, class: "visually-hidden") %>
+      <.live_file_input upload={@uploads.avatar} class="visually-hidden" />
       <%= unless Enum.empty?(@uploads.avatar.entries) do %>
       <%= submit("Save", phx_disable_with: "Uploading...", style: "margin-top:1rem;") %>
       <% end %>

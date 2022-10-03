@@ -3,9 +3,9 @@
   <summary>The demo showcases the following features of live uploads:</summary>
   <ul>
     <li><code><a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#allow_upload/3">allow_upload/3</a></code> specification</li>
-    <li><code><a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.Helpers.html#live_file_input/1">live_file_input/1</a></code></li>
-    <li><code><a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.Helpers.html#live_img_preview/2">live_img_preview/2</a></code></li>
-    <li><code><a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.Helpers.html#upload_errors/2">upload_errors/1,2</a></code></li>
+    <li><code><a href="https://hexdocs.pm/phoenix_live_view/Phoenix.Component.html#live_file_input/1">live_file_input/1</a></code></li>
+    <li><code><a href="https://hexdocs.pm/phoenix_live_view/Phoenix.Component.html#live_img_preview/2">live_img_preview/2</a></code></li>
+    <li><code><a href="https://hexdocs.pm/phoenix_live_view/Phoenix.Component.html#upload_errors/2">upload_errors/1,2</a></code></li>
     <li><code>entry.progress</code></li>
     <li><code><a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#cancel_upload/3">cancel_upload/3</a></code></li>
     <li><code><a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#consume_uploaded_entries/3">consume_uploaded_entries/3</a></code> on submit</li>
@@ -22,7 +22,7 @@
 
     <%# this form contains the live_file_input - you must bind phx-change and phx-submit on the form %>
     <form id="basic-uploads-form" phx-change="validate" phx-submit="save">
-      <%= live_file_input @uploads.exhibit %>
+      <.live_file_input upload={@uploads.exhibit} />
       <button type="submit" phx-disable-with="Uploading...">Upload</button>
     </form>
 
@@ -55,7 +55,7 @@
 
         <div class="upload-entry__details">
           <%# live_img_preview/2 uses an internal hook to render a client-side image preview %>
-          <%= live_img_preview entry %>
+          <.live_img_preview entry={entry} />
 
           <%# review the handle_event("cancel-upload") callback in the LiveView %>
           <a href="#" phx-click="cancel-upload" phx-value-ref={entry.ref} class="upload-entry__cancel">&times;</a>

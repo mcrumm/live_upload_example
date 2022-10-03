@@ -29,7 +29,7 @@ defmodule DropsWeb.IssuesLive.ExternalUploadSingleEntry do
         <% end %>
 
         <form id="issue-2037" phx-change="validate" phx-submit="save">
-          <%= live_file_input(@uploads.avatar) %>
+          <.live_file_input upload={@uploads.avatar} />
           <%= submit("Save") %>
         </form>
 

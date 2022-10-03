@@ -13,7 +13,7 @@
 
     <%= for entry <- @uploads.images.entries do %>
       <div class="upload-entry">
-        <%= live_img_preview entry, class: "upload-entry__image" %>
+        <.live_img_preview entry={entry} class="upload-entry__image" />
         <span class="upload-entry__text"><%= entry.client_name %> - <%= entry.progress %>%</span>
         <a href="#"
            phx-click="cancel-upload"
@@ -54,8 +54,8 @@
 
   <article class="column">
     <form phx-change="validate" phx-submit="save" phx-auto-recover="ignore">
-      <%= live_file_input @uploads.images, style: "display:none;" %>
-      <%= live_file_input @uploads.anything, style: "display:none;" %>
+      <.live_file_input upload={@uploads.images} style="display:none;" />
+      <.live_file_input upload={@uploads.anything} style="display:none;" />
       <button type="submit">Upload</button>
     </form>
     <ul><%= for path <- @uploaded_files do %><li>
