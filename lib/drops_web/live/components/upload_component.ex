@@ -11,25 +11,36 @@ defmodule DropsWeb.UploadComponent do
   @impl true
   def render(assigns) do
     ~H"""
-    <form id={"#{@id}-upload-form"}
-          class="upload-component"
-          action="#"
-          phx-change="validate"
-          phx-drop-target={@uploads.upload_component_file.ref}
-          phx-submit="save"
-          phx-target={@myself}>
-
+    <form
+      id={"#{@id}-upload-form"}
+      class="upload-component"
+      action="#"
+      phx-change="validate"
+      phx-drop-target={@uploads.upload_component_file.ref}
+      phx-submit="save"
+      phx-target={@myself}
+    >
       <.live_file_input upload={@uploads.upload_component_file} />
       <button type="submit">Upload</button>
 
       <section class="upload-entries">
         <h2>Preview</h2>
-        <%= for entry <- @uploads.upload_component_file.entries do %><div class="upload-entry__details">
-          <% # live_img_preview/2 uses an internal hook to render a client-side image preview %>
-          <.live_img_preview entry={entry} class="preview" />
-          <% # review the handle_event("cancel") callback %>
-          <a href="#" phx-click="cancel" phx-target={@myself} phx-value-ref={entry.ref} class="upload-entry__cancel">&times;</a>
-        </div><% end %>
+        <%= for entry <- @uploads.upload_component_file.entries do %>
+          <div class="upload-entry__details">
+            <% # live_img_preview/2 uses an internal hook to render a client-side image preview %>
+            <.live_img_preview entry={entry} class="preview" />
+            <% # review the handle_event("cancel") callback %>
+            <a
+              href="#"
+              phx-click="cancel"
+              phx-target={@myself}
+              phx-value-ref={entry.ref}
+              class="upload-entry__cancel"
+            >
+              &times;
+            </a>
+          </div>
+        <% end %>
       </section>
     </form>
     """

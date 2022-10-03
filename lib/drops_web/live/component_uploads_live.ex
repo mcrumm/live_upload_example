@@ -10,8 +10,9 @@ defmodule DropsWeb.ComponentUploadsLive do
   def render(assigns) do
     ~H"""
     <h1>Component Uploads Example</h1>
-    <p>In this demo, the upload form lives within a
-      <a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveComponent.html">LiveComponent</a>.</p>
+    <p>
+      In this demo, the upload form lives within a <a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveComponent.html">LiveComponent</a>.
+    </p>
 
     <section class="row upload-demo">
       <article class="column">
@@ -19,12 +20,12 @@ defmodule DropsWeb.ComponentUploadsLive do
         <%= live_component(DropsWeb.UploadComponent, id: :avatar) %>
       </article>
       <article class="column avatar">
-      <%= if @avatar_path do %>
-        <h2>Complete!</h2>
-        <figure>
-          <img src={@avatar_path} />
-        </figure>
-      <% end %>
+        <%= if @avatar_path do %>
+          <h2>Complete!</h2>
+          <figure>
+            <img src={@avatar_path} />
+          </figure>
+        <% end %>
       </article>
     </section>
     """

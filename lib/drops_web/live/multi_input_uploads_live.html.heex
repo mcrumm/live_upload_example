@@ -3,7 +3,6 @@
 <p>The demo showcases multiple <code>live_file_input</code> fields on a single form:</p>
 
 <section class="row upload-demo upload-demo__multi-input" style="min-height:100vh;">
-
   <article class="column" phx-drop-target={@uploads.images.ref} style="min-height:100vh;">
     <label for={@uploads.images.ref}>Images (up to <%= @uploads.images.max_entries %>)</label>
 
@@ -15,22 +14,27 @@
       <div class="upload-entry">
         <.live_img_preview entry={entry} class="upload-entry__image" />
         <span class="upload-entry__text"><%= entry.client_name %> - <%= entry.progress %>%</span>
-        <a href="#"
-           phx-click="cancel-upload"
-           phx-value-upload={entry.upload_config}
-           phx-value-ref={entry.ref}
-           class="upload-entry__cancel">&times;</a>
+        <a
+          href="#"
+          phx-click="cancel-upload"
+          phx-value-upload={entry.upload_config}
+          phx-value-ref={entry.ref}
+          class="upload-entry__cancel"
+        >
+          &times;
+        </a>
 
-      <%= for error <- upload_errors(@uploads.images, entry) do %>
-        <div class="alert alert-danger"><%= upload_error_to_string(error) %></div>
-      <% end %>
+        <%= for error <- upload_errors(@uploads.images, entry) do %>
+          <div class="alert alert-danger"><%= upload_error_to_string(error) %></div>
+        <% end %>
       </div>
     <% end %>
-
   </article>
 
   <article class="column" phx-drop-target={@uploads.anything.ref} style="min-height:100vh;">
-    <label for={@uploads.anything.ref}>Any Files (up to <%= @uploads.anything.max_entries %>)</label>
+    <label for={@uploads.anything.ref}>
+      Any Files (up to <%= @uploads.anything.max_entries %>)
+    </label>
 
     <%= for error <- upload_errors(@uploads.anything) do %>
       <div class="alert alert-danger"><%= upload_error_to_string(error) %></div>
@@ -39,15 +43,19 @@
     <%= for entry <- @uploads.anything.entries do %>
       <div class="upload-entry">
         <span class="upload-entry__text"><%= entry.client_name %> - <%= entry.progress %>%</span>
-        <a href="#"
-           phx-click="cancel-upload"
-           phx-value-upload={entry.upload_config}
-           phx-value-ref={entry.ref}
-           class="upload-entry__cancel">&times;</a>
+        <a
+          href="#"
+          phx-click="cancel-upload"
+          phx-value-upload={entry.upload_config}
+          phx-value-ref={entry.ref}
+          class="upload-entry__cancel"
+        >
+          &times;
+        </a>
 
-      <%= for error <- upload_errors(@uploads.anything, entry) do %>
-        <div class="alert alert-danger"><%= upload_error_to_string(error) %></div>
-      <% end %>
+        <%= for error <- upload_errors(@uploads.anything, entry) do %>
+          <div class="alert alert-danger"><%= upload_error_to_string(error) %></div>
+        <% end %>
       </div>
     <% end %>
   </article>
@@ -58,8 +66,12 @@
       <.live_file_input upload={@uploads.anything} style="display:none;" />
       <button type="submit">Upload</button>
     </form>
-    <ul><%= for path <- @uploaded_files do %><li>
-      <%= path %>
-    </li><% end %></ul>
+    <ul>
+      <%= for path <- @uploaded_files do %>
+        <li>
+          <%= path %>
+        </li>
+      <% end %>
+    </ul>
   </article>
 </section>
