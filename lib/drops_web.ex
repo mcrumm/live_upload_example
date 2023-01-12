@@ -47,7 +47,7 @@ defmodule DropsWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {DropsWeb.LayoutView, "live.html"}
+        layout: {DropsWeb.LayoutView, :live}
 
       unquote(view_helpers())
     end
