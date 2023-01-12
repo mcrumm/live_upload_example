@@ -34,5 +34,6 @@ defmodule DropsWeb.Router do
     live "/uploads/external/auto", ExternalLive.Auto, :index
 
     live "/issues/2037", IssuesLive.ExternalUploadSingleEntry, :index
+    live "/issues/2392", IssuesLive.Issue2392, :index
   end
 end
