@@ -30,6 +30,8 @@
       <%= link("Issue 2037", to: Routes.issues_external_upload_single_entry_path(@socket, :index)) %>
     </dt>
     <dd>External uploads bug when <code>max_entries: 1</code> and a client error occurs.</dd>
+    <dt><%= link("Issue 2271", to: Routes.issues_issue2271_path(@socket, :index)) %></dt>
+    <dd><code>max_entries: 1, auto_upload: true</code> fails to auto-upload every other file.</dd>
     <dt><%= link("Issue 2392", to: Routes.issues_issue2392_path(@socket, :index)) %></dt>
     <dd>Drag and drop bug when <code>max_entries: 1</code> after selecting a file via input.</dd>
   </dl>
