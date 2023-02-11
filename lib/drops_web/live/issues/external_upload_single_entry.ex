@@ -55,11 +55,9 @@ defmodule DropsWeb.IssuesLive.ExternalUploadSingleEntry do
       <section class="column">
         <h2>UUIDs (<%= length(@uploaded_files) %>)</h2>
 
-        <output form="external-auto-form" for={@uploads.avatar.ref}>
-          <%= for uuid <- @uploaded_files do %>
-            <p><%= uuid %></p>
-          <% end %>
-        </output>
+        <%= for uuid <- @uploaded_files do %>
+          <p><%= uuid %></p>
+        <% end %>
       </section>
     </section>
     """
@@ -95,7 +93,10 @@ defmodule DropsWeb.IssuesLive.ExternalUploadSingleEntry do
 
   @impl true
   def handle_event("save", _params, socket) do
-    {:noreply, DropsWeb.Uploads.consume_prepend_entries(socket, :avatar, :uploaded_files)}
+    {:noreply,
+     DropsWeb.Uploads.consume_and_update(socket, :avatar, :uploaded_files, fn [meta], _ ->
+       [meta.uuid]
+     end)}
   end
 
   @impl true

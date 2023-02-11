@@ -27,14 +27,7 @@
 
       <%= for entry <- @uploads[:exhibit].entries do %>
         <div>
-          <progress
-            value={entry.progress}
-            class="upload-entry__progress"
-            id={"#{entry.ref}-progress"}
-            max="100"
-          >
-            <%= entry.progress %>%
-          </progress>
+          <DropsWeb.Uploads.progress entry={entry} />
           <div>
             <%= entry.uuid %><br />
             <a
@@ -52,12 +45,7 @@
   </section>
 
   <section class="column">
-    <h2>UUIDs (<%= length(@uploaded_files) %>)</h2>
-
-    <output form="auto-form" for={@uploads.exhibit.ref}>
-      <%= for uuid <- @uploaded_files do %>
-        <p><%= uuid %></p>
-      <% end %>
-    </output>
+    <h2>Uploaded Files (<%= length(@uploaded_files) %>)</h2>
+    <DropsWeb.Uploads.figure_group paths={@uploaded_files} />
   </section>
 </section>

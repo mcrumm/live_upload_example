@@ -33,10 +33,6 @@
   <section class="column">
     <h2>UUIDs (<%= length(@uploaded_files) %>)</h2>
 
-    <output form="external-auto-form" for={@uploads.exhibit.ref}>
-      <%= for uuid <- @uploaded_files do %>
-        <p><%= uuid %></p>
-      <% end %>
-    </output>
+    <DropsWeb.Uploads.figure_group paths={@uploaded_files} />
   </section>
 </section>

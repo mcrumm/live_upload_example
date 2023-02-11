@@ -21,9 +21,7 @@ defmodule DropsWeb.ComponentUploadsLive do
       </article>
       <article :if={@avatar_path} class="column avatar">
         <h2>Complete!</h2>
-        <figure>
-          <img src={@avatar_path} />
-        </figure>
+        <DropsWeb.Uploads.figure src={@avatar_path} />
       </article>
     </section>
     """

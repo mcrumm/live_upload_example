@@ -47,7 +47,7 @@ defmodule DropsWeb.BasicUploadsLiveTest do
       |> Floki.parse_document!()
 
     assert doc
-           |> Floki.find(~s(output[form="basic-uploads-form"] > figure))
+           |> Floki.find(~s([data-figure-group] > figure))
            |> length() == 1
 
     # TODO: Figure out why we need a render for the latent changes.

@@ -2,7 +2,21 @@ defmodule DropsWeb.Uploads do
   @moduledoc """
   Conveniences for working with uploads.
   """
+  use Phoenix.Component
   alias Phoenix.LiveView
+
+  embed_templates("uploads/*")
+
+  attr :paths, :list, required: true, doc: "A list of URI paths"
+  def figure_group(assigns)
+
+  attr :src, :string, required: true, doc: "The absolute URI path to the image"
+  attr :caption, :string, default: ""
+  slot :inner_block
+  def figure(assigns)
+
+  attr :entry, Phoenix.LiveView.UploadEntry, required: true
+  def progress(assigns)
 
   @doc """
   Returns the directory where uploads are stored.

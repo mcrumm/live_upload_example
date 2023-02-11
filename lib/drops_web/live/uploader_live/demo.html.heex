@@ -18,15 +18,10 @@
 
   <article :if={@live_action == :done} class="column">
     <h2>You did it!</h2>
+    <DropsWeb.Uploads.figure src={@file} caption={"DONE:#{@file}"} />
 
-    <figure>
-      <img src={@file} />
-      <figcaption>DONE:<%= @file %></figcaption>
-    </figure>
-
-    <%= live_redirect("Again, again!", to: Routes.uploader_demo_path(@socket, :start)) %> | <%= live_patch(
-      "All done",
-      to: Routes.page_path(@socket, :index)
-    ) %>
+    <.link navigate={Routes.uploader_demo_path(@socket, :start)}>Again, again!</.link>
+    |
+    <.link patch={Routes.page_path(@socket, :index)}>All done</.link>
   </article>
 </section>

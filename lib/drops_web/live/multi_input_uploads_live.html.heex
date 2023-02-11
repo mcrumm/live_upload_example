@@ -66,12 +66,6 @@
       <.live_file_input upload={@uploads.anything} style="display:none;" />
       <button type="submit">Upload</button>
     </form>
-    <ul>
-      <%= for path <- @uploaded_files do %>
-        <li>
-          <%= path %>
-        </li>
-      <% end %>
-    </ul>
+    <DropsWeb.Uploads.figure_group paths={@uploaded_files} />
   </article>
 </section>

@@ -6,7 +6,7 @@
     <%= inspect(@selected_file) %>
     <button type="button" phx-click="remove" phx-disable-with="Removing...">Remove</button>
   <% else %>
-    <%= live_component(DropsWeb.FileComponent, file: @uploads.file) %>
+    <.live_component module={DropsWeb.FileComponent} file={@uploads.file} />
   <% end %>
   <button type="submit" phx-disable-with="Uploading..." {%{disabled: @selected_file}}>
     Upload

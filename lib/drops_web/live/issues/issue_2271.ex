@@ -51,9 +51,7 @@ defmodule DropsWeb.IssuesLive.Issue2271 do
             <p :for={error <- upload_errors(@uploads.avatar, entry)} class="alert alert-danger">
               <%= upload_error_to_string(error) %>
             </p>
-            <progress value={entry.progress} max="100">
-              <%= entry.progress %>%
-            </progress>
+            <DropsWeb.Uploads.progress entry={entry} />
             <.live_img_preview entry={entry} />
             <button type="button" class="button" phx-click="cancel-upload" phx-value-ref={entry.ref}>
               Cancel Upload
@@ -64,10 +62,7 @@ defmodule DropsWeb.IssuesLive.Issue2271 do
         <section class="uploaded-files">
           <h2>Uploaded Files</h2>
           <p>These files are temporary&mdash; the list will be refreshed after each upload.</p>
-          <figure :for={static_path <- @uploaded_files}>
-            <img src={static_path} />
-            <figcaption><%= static_path %></figcaption>
-          </figure>
+          <DropsWeb.Uploads.figure_group paths={@uploaded_files} />
         </section>
       </section>
     </section>

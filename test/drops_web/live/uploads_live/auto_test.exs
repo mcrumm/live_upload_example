@@ -21,7 +21,7 @@ defmodule DropsWeb.UploadsLive.AutoTest do
     doc = lv |> render() |> Floki.parse_document!()
 
     assert doc
-           |> Floki.find(~s(output[form="auto-form"] > p))
+           |> Floki.find(~s([data-figure-group] > figure))
            |> length() == 1
 
     assert doc

@@ -126,14 +126,7 @@ defmodule DropsWeb.UploadsLive.MediaRecorder do
         <h2>Recordings</h2>
         <%= for entry <- @uploads.clips.entries do %>
           <div class="upload-entry">
-            <progress
-              value={entry.progress}
-              class="upload-entry__progress"
-              id={"#{entry.ref}-progress"}
-              max="100"
-            >
-              <%= entry.progress %>%
-            </progress>
+            <DropsWeb.Uploads.progress entry={entry} />
             <p><%= entry.client_name %></p>
           </div>
         <% end %>
