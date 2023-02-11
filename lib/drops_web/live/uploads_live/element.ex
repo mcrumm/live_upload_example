@@ -16,16 +16,11 @@ defmodule DropsWeb.UploadsLive.Element do
 
   @impl true
   def handle_event("submit", _, socket) do
-    [file] = consume_uploaded_entries(socket, :file, fn entry, _ -> {:ok, entry} end)
-    {:noreply, update_file(socket, file)}
+    {:noreply, DropsWeb.Uploads.consume_replace_entries(socket, :file, :selected_file)}
   end
 
   @impl true
   def handle_event("remove", _, socket) do
-    {:noreply, update_file(socket, nil)}
-  end
-
-  defp update_file(socket, file) do
-    update(socket, :selected_file, fn _ -> file end)
+    {:noreply, assign(socket, :selected_file, nil)}
   end
 end

@@ -32,16 +32,9 @@ defmodule DropsWeb.MultiInputUploadsLive do
 
   @impl true
   def handle_event("save", _, socket) do
-    anything = consume_uploaded_entries(socket, :anything, &do_consume_upload(&1, &2, socket))
-    images = consume_uploaded_entries(socket, :images, &do_consume_upload(&1, &2, socket))
-
-    {:noreply, update(socket, :uploaded_files, &(&1 ++ anything ++ images))}
-  end
-
-  defp do_consume_upload(%{path: path}, _entry, socket) do
-    dest = Path.join(Drops.uploads_priv_dir(), Path.basename(path))
-    File.cp!(path, dest)
-    static_path = Routes.static_path(socket, "/uploads/#{Path.basename(dest)}")
-    {:ok, static_path}
+    {:noreply,
+     socket
+     |> DropsWeb.Uploads.consume_append_entries(:anything, :uploaded_files)
+     |> DropsWeb.Uploads.consume_append_entries(:images, :uploaded_files)}
   end
 end

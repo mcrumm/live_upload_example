@@ -16,17 +16,9 @@ defmodule DropsWeb.CropprLive do
 
   @impl Phoenix.LiveView
   def handle_event("save", _, socket) do
-    [avatar_path] =
-      consume_uploaded_entries(socket, :avatar, fn %{path: path}, _ ->
-        dest = Path.join(Drops.uploads_priv_dir(), Path.basename(path))
-        File.cp!(path, dest)
-        static_path = Routes.static_path(socket, "/uploads/#{Path.basename(dest)}")
-        {:ok, static_path}
-      end)
-
     {:noreply,
      socket
-     |> assign(:avatar_path, avatar_path)
+     |> DropsWeb.Uploads.consume_replace_entries(:avatar, :avatar_path)
      |> push_event("croppr:destroy", %{"name" => "avatar"})}
   end
 end

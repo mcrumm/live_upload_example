@@ -76,15 +76,7 @@ defmodule DropsWeb.IssuesLive.Issue2392 do
 
   @impl true
   def handle_event("save", _params, socket) do
-    uploaded_files =
-      consume_uploaded_entries(socket, :avatar, fn %{path: path}, _entry ->
-        # Drops.copy_entry_to_uploads(path)
-        dest = Path.join(Drops.uploads_priv_dir(), Path.basename(path))
-        File.cp!(path, dest)
-        static_path = Routes.static_path(socket, "/uploads/#{Path.basename(dest)}")
-        {:ok, static_path}
-      end)
-
+    uploaded_files = DropsWeb.Uploads.consume_entries(socket, :avatar)
     {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
   end
 

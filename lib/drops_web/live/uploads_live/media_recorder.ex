@@ -21,19 +21,7 @@ defmodule DropsWeb.UploadsLive.MediaRecorder do
 
   # with auto_upload: true we can consume files here
   defp handle_progress(:clips, entry, socket) do
-    if entry.done? do
-      path =
-        consume_uploaded_entry(socket, entry, fn %{path: path} ->
-          dest = Path.join(Drops.uploads_priv_dir(), Path.basename(path))
-          File.cp!(path, dest)
-          static_path = Routes.static_path(socket, "/uploads/#{Path.basename(dest)}")
-          {:ok, static_path}
-        end)
-
-      {:noreply, update(socket, :uploaded_files, &[path | &1])}
-    else
-      {:noreply, socket}
-    end
+    {:noreply, DropsWeb.Uploads.update_on_done(socket, entry, :uploaded_files)}
   end
 
   @impl true

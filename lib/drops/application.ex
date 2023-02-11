@@ -7,8 +7,7 @@ defmodule Drops.Application do
 
   def start(_type, _args) do
     # Ensure the uploads path exists.
-    uploads_priv_dir = Drops.uploads_priv_dir()
-    File.mkdir_p!(uploads_priv_dir)
+    DropsWeb.Uploads.uploads_dir() |> File.mkdir_p!()
 
     children = [
       # Start the Ecto repository

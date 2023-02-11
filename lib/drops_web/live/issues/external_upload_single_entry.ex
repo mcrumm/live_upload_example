@@ -95,13 +95,7 @@ defmodule DropsWeb.IssuesLive.ExternalUploadSingleEntry do
 
   @impl true
   def handle_event("save", _params, socket) do
-    uploaded_files =
-      consume_uploaded_entries(socket, :avatar, fn params, _entry ->
-        IO.inspect(params, label: :upload_params)
-        {:ok, params}
-      end)
-
-    {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
+    {:noreply, DropsWeb.Uploads.consume_prepend_entries(socket, :avatar, :uploaded_files)}
   end
 
   @impl true

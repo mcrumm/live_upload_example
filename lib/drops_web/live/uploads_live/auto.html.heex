@@ -26,15 +26,27 @@
       <h3>Pending Uploads (<%= length(@uploads.exhibit.entries) %>)</h3>
 
       <%= for entry <- @uploads[:exhibit].entries do %>
-        <a
-          href="#"
-          phx-click="cancel-upload"
-          phx-value-ref={entry.ref}
-          class="upload-entry__cancel"
-        >
-          Cancel Upload
-        </a>
-        <pre class="upload-entry"><code><%= inspect entry, pretty: true %></code></pre>
+        <div>
+          <progress
+            value={entry.progress}
+            class="upload-entry__progress"
+            id={"#{entry.ref}-progress"}
+            max="100"
+          >
+            <%= entry.progress %>%
+          </progress>
+          <div>
+            <%= entry.uuid %><br />
+            <a
+              href="#"
+              phx-click="cancel-upload"
+              phx-value-ref={entry.ref}
+              class="upload-entry__cancel"
+            >
+              Cancel Upload
+            </a>
+          </div>
+        </div>
       <% end %>
     </section>
   </section>
