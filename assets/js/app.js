@@ -7,10 +7,12 @@ import { LiveSocket } from "phoenix_live_view"
 import Uploaders from "./uploaders"
 import MediaRecorderDemo from "./media_recorder_demo"
 import Croppr from "./croppr"
+import ResizeInput from "./resize_input"
 
 let hooks = {
   Croppr,
-  MediaRecorderDemo
+  MediaRecorderDemo,
+  ResizeInput
 }
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
