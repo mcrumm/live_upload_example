@@ -40,6 +40,15 @@
     <dd>Drag and drop bug when <code>max_entries: 1</code> after selecting a file via input.</dd>
 
     <dt>
+      <.link navigate={Routes.writer_echo_path(@socket, :index)}>
+        Advanced: UploadWriter behaviour
+      </.link>
+    </dt>
+    <dd>
+      A custom UploadWriter that logs information about each chunk of data as it reaches the server.
+    </dd>
+
+    <dt>
       <.link navigate={Routes.writer_s3_path(@socket, :index)}>
         Advanced: UploadWriter to S3
       </.link>
