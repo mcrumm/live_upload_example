@@ -37,5 +37,7 @@ defmodule DropsWeb.Router do
     live "/issues/2037", IssuesLive.ExternalUploadSingleEntry, :index
     live "/issues/2271", IssuesLive.Issue2271, :index
     live "/issues/2392", IssuesLive.Issue2392, :index
+
+    live "/writers/s3", WriterLive.S3, :index
   end
 end

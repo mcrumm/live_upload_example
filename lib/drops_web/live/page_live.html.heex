@@ -38,6 +38,13 @@
     <dd><code>max_entries: 1, auto_upload: true</code> fails to auto-upload every other file.</dd>
     <dt><%= link("Issue 2392", to: Routes.issues_issue2392_path(@socket, :index)) %></dt>
     <dd>Drag and drop bug when <code>max_entries: 1</code> after selecting a file via input.</dd>
+
+    <dt>
+      <.link navigate={Routes.writer_s3_path(@socket, :index)}>
+        Advanced: UploadWriter to S3
+      </.link>
+    </dt>
+    <dd>Upload files to S3 via your web server.</dd>
   </dl>
 </section>
 

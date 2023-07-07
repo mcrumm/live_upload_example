@@ -44,6 +44,8 @@ config :ex_aws,
 
 config :ex_aws, ExAws.Request.Finch, finch: Drops.Finch
 
+config :drops, s3_bucket: "ex-warp-drive"
+
 ## End ExAws Config
 
 # Import environment specific config. This must remain at the bottom
