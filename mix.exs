@@ -32,6 +32,9 @@ defmodule Drops.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:ex_aws_s3, "~> 2.0"},
+      {:finch, "~> 0.13"},
+      {:sweet_xml, "~> 0.6"},
       {:phoenix, "~> 1.6.0"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},

@@ -16,6 +16,8 @@ defmodule Drops.Application do
       DropsWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: Drops.PubSub},
+      # Start Finch
+      {Finch, name: Drops.Finch},
       # Start the Endpoint (http/https)
       DropsWeb.Endpoint
       # Start a worker by calling: Drops.Worker.start_link(arg)

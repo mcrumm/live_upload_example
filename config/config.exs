@@ -35,6 +35,17 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+## ExAws Config (optional)
+
+config :ex_aws,
+  access_key_id: [{:system, "DROPS_S3_KEY_ID"}],
+  secret_access_key: [{:system, "DROPS_S3_SECRET_KEY"}],
+  http_client: ExAws.Request.Finch
+
+config :ex_aws, ExAws.Request.Finch, finch: Drops.Finch
+
+## End ExAws Config
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
