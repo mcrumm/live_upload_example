@@ -91,8 +91,6 @@ defmodule DropsWeb.WriterLive.S3 do
   @max_file_size 1000 * @mebibyte
 
   def mount(_params, _session, socket) do
-    bucket = Application.fetch_env!(:drops, :s3_bucket)
-
     {:ok,
      socket
      |> assign(:last_upload, nil)
@@ -101,7 +99,12 @@ defmodule DropsWeb.WriterLive.S3 do
        chunk_size: @chunk_size,
        chunk_timeout: 30_000,
        max_file_size: @max_file_size,
-       writer: fn _ -> {S3UploadWriter, bucket: bucket, path_prefix: "drops/"} end
+       writer: &upload_writer/3
      )}
+  end
+
+  defp upload_writer(_name, %Phoenix.LiveView.UploadEntry{} = entry, _socket) do
+    bucket = Application.fetch_env!(:drops, :s3_bucket)
+    {S3UploadWriter, bucket: bucket, content_type: entry.client_type, path_prefix: "drops/"}
   end
 end

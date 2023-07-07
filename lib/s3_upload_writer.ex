@@ -13,20 +13,21 @@ defmodule S3UploadWriter do
 
     * `:config` - Optional config overrides to `ExAws.request/2`.
 
+  All other options are passed directly to the CreateMultipartUpload request.
+  Refer to `ExAws.S3.initiate_multipart_upload/3` for available options.
+
   """
   @behaviour Phoenix.LiveView.UploadWriter
 
   alias ExAws.S3
 
   @impl true
-  def init(%Phoenix.LiveView.UploadEntry{} = entry, opts) do
+  def init(opts) do
     {bucket, opts} = Keyword.pop!(opts, :bucket)
     config = Keyword.get(opts, :config, [])
 
     path_prefix = Keyword.get(opts, :path_prefix, "")
     path = path_with_prefix(path_prefix)
-
-    opts = Keyword.put(opts, :content_type, entry.client_type)
 
     upload = S3.upload([], bucket, path, opts)
 
