@@ -37,7 +37,7 @@ defmodule Drops.MixProject do
       {:ecto_sql, "~> 3.4"},
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_live_view, "~> 0.18.0", phoenix_live_view_opts()},
+      {:phoenix_live_view, "~> 0.19.0", phoenix_live_view_opts()},
       {:floki, ">= 0.27.0", only: :test},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -53,7 +53,7 @@ defmodule Drops.MixProject do
     if path = System.get_env("LIVE_VIEW_PATH") do
       [path: path]
     else
-      []
+      [github: "phoenixframework/phoenix_live_view", branch: "mc-upload-writer-init-entry"]
     end
   end
 
