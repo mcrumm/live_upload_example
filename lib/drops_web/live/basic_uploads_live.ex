@@ -6,7 +6,11 @@ defmodule DropsWeb.BasicUploadsLive do
     {:ok,
      socket
      |> assign(:uploaded_files, [])
-     |> allow_upload(:exhibit, accept: ~w(video/* image/*), max_entries: 6, chunk_size: 64_000)}
+     |> allow_upload(:exhibit,
+       accept: ~w(video/* image/*),
+       max_entries: 6,
+       chunk_size: 64 * 1_024
+     )}
   end
 
   @impl true

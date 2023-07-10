@@ -6,7 +6,7 @@ defmodule DropsWeb.UploaderLive.Demo do
     {:ok,
      socket
      |> reset_file()
-     |> allow_upload(:file, accept: ~w(image/*), chunk_size: 256_000)}
+     |> allow_upload(:file, accept: ~w(image/*), chunk_size: 256 * 1_024)}
   end
 
   @impl true

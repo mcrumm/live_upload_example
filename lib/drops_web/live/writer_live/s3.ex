@@ -84,21 +84,15 @@ defmodule DropsWeb.WriterLive.S3 do
     {:noreply, socket}
   end
 
-  # MiB
-  @mebibyte 1_048_576
-
-  @chunk_size 5 * @mebibyte
-  @max_file_size 1000 * @mebibyte
-
   def mount(_params, _session, socket) do
     {:ok,
      socket
      |> assign(:last_upload, nil)
      |> allow_upload(:files,
        accept: :any,
-       chunk_size: @chunk_size,
+       chunk_size: 5 * 1_024 * 1_024,
        chunk_timeout: 30_000,
-       max_file_size: @max_file_size,
+       max_file_size: 1_000 * 1_024 * 1_024,
        writer: &upload_writer/3
      )}
   end

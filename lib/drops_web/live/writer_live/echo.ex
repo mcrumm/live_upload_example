@@ -90,8 +90,8 @@ defmodule DropsWeb.WriterLive.Echo do
      |> assign(:uploaded_files, [])
      |> allow_upload(:files,
        accept: :any,
-       chunk_size: 256_000,
-       max_file_size: 100_000_000,
+       chunk_size: 256 * 1_024,
+       max_file_size: 100 * 1_024 * 1_024,
        max_entries: 10,
        writer: fn name, entry, _socket ->
          {EchoWriter, level: :debug, upload: name, entry: entry}
