@@ -56,7 +56,7 @@ defmodule Drops.MixProject do
     if path = System.get_env("LIVE_VIEW_PATH") do
       [path: path]
     else
-      [github: "phoenixframework/phoenix_live_view", branch: "cm-upload-writer"]
+      [github: "phoenixframework/phoenix_live_view"]
     end
   end
 

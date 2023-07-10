@@ -40,7 +40,7 @@ defmodule S3UploadWriter do
   def meta(state), do: state
 
   @impl true
-  def write_chunk(state, data) do
+  def write_chunk(data, state) do
     %{part_number: part_number} = state
 
     case S3.Upload.upload_chunk({data, part_number}, state.upload, state.config) do

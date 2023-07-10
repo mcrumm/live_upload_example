@@ -36,7 +36,7 @@ defmodule EchoWriter do
   def meta(state), do: state.entry_meta
 
   @impl true
-  def write_chunk(state, data) do
+  def write_chunk(data, state) do
     size = byte_size(data)
     log_message(state, "received chunk of #{size} bytes")
     {:ok, %{state | total: state.total + size}}
