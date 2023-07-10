@@ -38,13 +38,14 @@ defmodule EchoWriter do
   @impl true
   def write_chunk(data, state) do
     size = byte_size(data)
-    log_message(state, "received chunk of #{size} bytes")
-    {:ok, %{state | total: state.total + size}}
+    new_state = %{state | total: state.total + size}
+    log_message(state, "received chunk of #{size} bytes, new total: #{new_state.total}")
+    {:ok, new_state}
   end
 
   @impl true
   def close(state) do
-    log_message(state, "closing upload after #{state.total} bytes}")
+    log_message(state, "closing upload after #{state.total} bytes")
     {:ok, state}
   end
 
